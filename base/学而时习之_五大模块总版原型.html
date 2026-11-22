@@ -13,8 +13,8 @@ body{margin:0;background:#f5f7f4;color:var(--ink);font:14px/1.5 Inter,"PingFang 
 .nav button{border:0;background:transparent;text-align:left;padding:12px;border-radius:10px;color:#617167;cursor:pointer}
 .nav button.active{background:var(--pale);color:var(--green);font-weight:700}
 .main{position:relative;min-width:0;height:100vh;overflow:hidden;background:#f5f7f4}
-.frame{position:absolute;inset:0;display:none;border:0;width:100%;height:100%;min-height:100%;background:#f5f7f4}
-.frame.active{display:block}
+.frame{position:absolute;inset:0;display:block;visibility:hidden;opacity:0;pointer-events:none;border:0;width:100%;height:100%;min-height:100%;background:#f5f7f4}
+.frame.active{visibility:visible;opacity:1;pointer-events:auto;z-index:1}
 @media(max-width:700px){
 .shell{grid-template-columns:1fr}
 .side{padding:10px 12px;border-right:0;border-bottom:1px solid var(--line)}
@@ -107,9 +107,19 @@ function getFrame(file){
 
 function renderModule(file){
   if(!buttons.some(b=>b.dataset.file===file))file=defaultFile;
-  const frame=getFrame(file);
-  frames.forEach((item,key)=>item.classList.toggle('active',key===file));
-  buttons.forEach(button=>button.classList.toggle('active',button.dataset.file===file));
+  getFrame(file);
+  frames.forEach((item,key)=>{
+    const active=key===file;
+    item.classList.toggle('active',active);
+    item.setAttribute('aria-hidden',String(!active));
+    item.tabIndex=active?0:-1;
+  });
+  buttons.forEach(button=>{
+    const active=button.dataset.file===file;
+    button.classList.toggle('active',active);
+    if(active)button.setAttribute('aria-current','page');
+    else button.removeAttribute('aria-current');
+  });
   activeFile=file;
   return file;
 }
@@ -123,26 +133,43 @@ function fileFromLocation(){
   }catch(_){return defaultFile;}
 }
 
+// 地址栏是模块状态的唯一来源；历史前进、后退及 hash 变化均走同一同步入口。
+function syncModuleFromLocation(){
+  const file=fileFromLocation();
+  renderModule(file);
+  const expectedHash='#module='+encodeURIComponent(file);
+  if(location.hash!==expectedHash){
+    history.replaceState({module:file},'',expectedHash);
+  }
+}
+
 function navigateTo(file,writeHistory){
   if(!buttons.some(b=>b.dataset.file===file))return;
-  if(file===activeFile)return;
-  renderModule(file);
   const nextHash='#module='+encodeURIComponent(file);
-  if(writeHistory&&location.hash!==nextHash)history.pushState({module:file},'',nextHash);
+  if(file===activeFile){
+    if(location.hash!==nextHash)history.replaceState({module:file},'',nextHash);
+    return;
+  }
+  if(writeHistory&&location.hash!==nextHash){
+    history.pushState({module:file},'',nextHash);
+  }
+  renderModule(file);
 }
 
 nav.addEventListener('click',event=>{
   const button=event.target.closest('button[data-file]');
   if(!button)return;
+  event.preventDefault();
   navigateTo(button.dataset.file,true);
 });
 
-// 前进/后退时只切换已保留的模块 iframe，不重新加载页面。
-window.addEventListener('popstate',()=>renderModule(fileFromLocation()));
+// 浏览器前进/后退，以及地址栏 hash 被其他操作修改时，统一同步内容和导航高亮。
+window.addEventListener('popstate',syncModuleFromLocation);
+window.addEventListener('hashchange',syncModuleFromLocation);
 
 // 首次进入时用 replaceState 建立当前模块地址，不额外增加一条历史记录。
 const initialFile=fileFromLocation();
 renderModule(initialFile);
 const initialHash='#module='+encodeURIComponent(initialFile);
 if(location.hash!==initialHash)history.replaceState({module:initialFile},'',initialHash);
-</script></body></html></html>
+</script></body></html>
