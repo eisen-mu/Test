@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>学而时习之 · 五大模块总版原型</title>
+<style>
+:root{--ink:#263a31;--green:#214b3b;--pale:#eaf2ec;--line:#e5ebe6;--muted:#839088}*{box-sizing:border-box}body{margin:0;background:#f5f7f4;color:var(--ink);font:14px/1.5 Inter,"PingFang SC","Microsoft YaHei",sans-serif}.shell{min-height:100vh;display:grid;grid-template-columns:220px 1fr}.side{background:white;border-right:1px solid var(--line);padding:24px 15px;display:flex;flex-direction:column}.brand{font:700 18px Georgia,serif;padding:5px 10px 28px}.brand small{display:block;color:#9aa49d;font:10px sans-serif;letter-spacing:.14em;margin-top:5px}.label{font-size:10px;color:#a0aaa3;letter-spacing:.15em;padding:0 12px 8px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;text-align:left;padding:12px;border-radius:10px;color:#617167;cursor:pointer}.nav button.active{background:var(--pale);color:var(--green);font-weight:700}.note{margin-top:auto;padding:13px;background:#f7f8f5;border:1px solid #eef1ec;border-radius:12px;color:#738078;font-size:11px;line-height:1.7}.main{min-width:0;display:flex;flex-direction:column}.top{height:62px;background:#ffffffdf;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 25px;color:#839088;font-size:12px}.top b{color:#3d5549}.frame{border:0;width:100%;height:calc(100vh - 62px);background:#f5f7f4}.mobile{display:none}@media(max-width:700px){.shell{grid-template-columns:1fr}.side{padding:10px;border-right:0;border-bottom:1px solid var(--line)}.brand{padding:6px 8px 10px}.label,.note{display:none}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:9px 11px}.frame{height:calc(100vh - 110px)}.top{height:48px;padding:0 14px}}
+</style></head><body><div class="shell"><aside class="side"><div class="brand">学而时习之<small>LEARN · REFLECT · REVIEW</small></div><div class="label">学习空间 · 五大模块</div><nav class="nav" id="nav">
+<button class="active" data-file="学而时习之_知新材料目录与阅读器原型.html">▤　知新</button>
+<button data-file="学而时习之_卡片管理原型_批量删除版.html">▤　卡片管理</button>
+<button data-file="学而时习之_温故页面原型.html">◷　温故</button>
+<button data-file="学而时习之_识错页面原型_详情只读连对次数版.html">◎　识错</button>
+<button data-file="学而时习之_打动我的一瞬页面原型_修改版2.html">♡　打动我的一瞬</button>
+</nav><div class="note">五大模块统一入口。当前总版复用各模块独立原型页面；切换模块时在此区域内加载对应页面。<br>温故采用仓库当前版本。</div></aside><main class="main"><header class="top"><span>学习空间　/　<b id="current">知新</b></span><span>五大模块总版 · 原型审查稿</span></header><iframe class="frame" id="view" src="学而时习之_知新材料目录与阅读器原型.html" title="模块原型"></iframe></main></div>
+<script>
+const nav=document.getElementById('nav'),view=document.getElementById('view'),current=document.getElementById('current');
+nav.addEventListener('click',e=>{const b=e.target.closest('button[data-file]');if(!b)return;nav.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));view.src=b.dataset.file;current.textContent=b.textContent.trim().replace(/^\S+\s*/, '')});
+</script></body></html>
