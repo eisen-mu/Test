@@ -44,13 +44,13 @@ function normalizeEmbeddedPage(){
       if(/卡片管理|识错|打动我的一瞬/.test(pageTitle)){
         style.textContent+=`
           /* 淡墨绿色搜索/筛选栏：比知新、温故的主色更轻，保持柔和层次 */
-          .toolbar{background:#718b78!important;border:1px solid #829a88!important;box-shadow:0 7px 18px rgba(47,75,56,.09)!important;border-radius:16px!important;padding:18px 20px!important}
-          .toolbar-label{color:#fbfcf8!important;font-weight:600!important;letter-spacing:.02em!important}
-          .toolbar-field>span{color:#edf3ed!important}
-          .toolbar-field input,.toolbar-field select,.toolbar input.search{background:#f8faf7!important;border:1px solid #dce6dc!important;color:#344b3d!important;border-radius:9px!important}
+          .toolbar{background:#eaf2ec!important;border:1px solid #dce8de!important;box-shadow:none!important;border-radius:16px!important;padding:18px 20px!important}
+          .toolbar-label{color:#214b3b!important;font-weight:600!important;letter-spacing:.02em!important}
+          .toolbar-field>span{color:#536b5a!important}
+          .toolbar-field input,.toolbar-field select,.toolbar input.search{background:#fff!important;border:1px solid #dce6dc!important;color:#344b3d!important;border-radius:9px!important}
           .toolbar-field input::placeholder,.toolbar input::placeholder{color:#8b9a90!important}
-          .toolbar-field input:focus,.toolbar-field select:focus{outline:2px solid #d5e3d5!important;outline-offset:1px!important}
-          .filter-hint{color:#edf3ed!important}
+          .toolbar-field input:focus,.toolbar-field select:focus{outline:2px solid #b8cfbd!important;outline-offset:1px!important}
+          .filter-hint{color:#536b5a!important}
         `;
       }
       if(/温故/.test(pageTitle)){
