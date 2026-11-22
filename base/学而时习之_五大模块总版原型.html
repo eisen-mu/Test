@@ -27,6 +27,26 @@ function normalizeEmbeddedPage(){
       .app{display:block!important;grid-template-columns:minmax(0,1fr)!important;min-height:100vh!important;width:100%!important}
       .sidebar,.mobile-nav{display:none!important}
       .main{display:block!important;min-width:0!important;width:100%!important;min-height:100vh!important}
+      /* 仅对指定模块加深搜索/筛选区域，沿用全站森林绿灰色系 */
+      const pageTitle=doc.title||'';
+      if(/卡片管理|识错|打动我的一瞬/.test(pageTitle)){
+        style.textContent += `
+          .toolbar{background:#263f35!important;border:1px solid #365448!important;box-shadow:0 10px 26px rgba(24,49,39,.12)!important;border-radius:16px!important;padding:18px 20px!important}
+          .toolbar-label{color:#edf3ed!important;font-weight:600!important;letter-spacing:.02em!important}
+          .toolbar-field>span{color:#b8c9bd!important}
+          .toolbar-field input,.toolbar-field select,.toolbar input.search{background:#f5f8f5!important;border:1px solid #d7e2d9!important;color:#344b3d!important;border-radius:9px!important}
+          .toolbar-field input::placeholder,.toolbar input::placeholder{color:#8b9a90!important}
+          .toolbar-field input:focus,.toolbar-field select:focus{outline:2px solid #91ad9a!important;outline-offset:1px!important}
+          .filter-hint{color:#c5d3c9!important}
+        `;
+      }
+      if(/温故/.test(pageTitle)){
+        style.textContent += `
+          .source-action{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;margin-top:16px!important;padding:10px 17px!important;border:1px solid #315b46!important;border-radius:10px!important;background:#315b46!important;color:#fff!important;font-size:13px!important;font-weight:600!important;box-shadow:0 4px 12px rgba(36,75,56,.12)!important;cursor:pointer!important;transition:background .15s,border-color .15s,transform .15s!important}
+          .source-action:hover{background:#244a38!important;border-color:#244a38!important;transform:translateY(-1px)!important}
+          .source-action:focus-visible{outline:3px solid #a7c0ad!important;outline-offset:3px!important}
+        `;
+      }
       /* 五个模块统一顶部栏、内容宽度与页面留白 */
       .topbar{height:62px!important;min-height:62px!important;padding:0 34px!important;box-sizing:border-box!important;position:relative!important;top:auto!important}
       .content{width:100%!important;max-width:1320px!important;margin:0 auto!important;padding:32px 36px 56px!important;box-sizing:border-box!important}
