@@ -171,63 +171,8 @@
   @media(max-width:1050px){.app{grid-template-columns:205px minmax(0,1fr)}.content{padding:30px 26px}.topbar{padding:0 26px}.layout{grid-template-columns:minmax(0,1fr) 260px}.hero-symbol{margin-right:0}}
   @media(max-width:820px){.app{display:block}.sidebar{display:none}.topbar{height:58px;padding:0 18px}.content{padding:25px 18px 88px}.layout{grid-template-columns:1fr}.side-column{display:grid;grid-template-columns:1fr 1fr}.hero{padding:22px}.hero-symbol{width:72px;height:72px;font-size:30px}.mobile-nav{position:fixed;bottom:0;left:0;right:0;height:65px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;z-index:10;backdrop-filter:blur(12px)}.mobile-nav button{border:0;background:transparent;color:#859188;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:3px}.mobile-nav button.active{color:var(--green-dark);font-weight:700}.mobile-nav b{font-size:17px;font-weight:400}.date-chip{display:none}}
   @media(max-width:560px){.next-row{right:10px}.next-row .primary-btn{padding:9px 11px;font-size:11px}.page-head{align-items:flex-start}.page-head h1{font-size:27px}.hero-inner{align-items:flex-start}.hero-symbol{display:none}.hero-title{font-size:20px}.hero-stat{gap:17px}.hero-stat-num{font-size:20px}.setup-panel{padding:19px 17px}.category{flex:1;min-width:0;padding:9px 8px}.material-list{grid-template-columns:1fr}.side-column{grid-template-columns:1fr}.flashcard{padding:54px 18px 48px;min-height:410px}.card-art-layer{height:450px}.card-theme-tools{top:13px;right:13px}.flashcard:before{inset:8px}.question-text{font-size:22px}.assess-actions{gap:8px}.assess-btn{min-width:0;flex:1}.start-row{align-items:flex-start;flex-direction:column}.start-row .primary-btn{width:100%}.summary-panel{padding:18px}.review-top{align-items:flex-start}.source-action{right:16px;bottom:12px}}
-
-  /* 原型反馈标注模式 */
-  .annotation-toggle{border:1px solid #d8e4dc;background:#f8fbf8;color:#315b47;border-radius:20px;padding:7px 12px;font-size:11px;font-weight:650;display:flex;align-items:center;gap:6px;transition:.18s}
-  .annotation-toggle:hover{background:#edf5ef;border-color:#a9c4b1}
-  .annotation-toggle.active{background:#315f49;color:#fff;border-color:#315f49;box-shadow:0 4px 12px rgba(49,95,73,.18)}
-  body.annotation-mode,body.annotation-mode *{cursor:crosshair!important}
-  body.annotation-mode [data-feedback-ui],body.annotation-mode [data-feedback-ui] *{cursor:default!important}
-  .annotation-hover{outline:2px dashed #3b8461!important;outline-offset:3px!important;box-shadow:0 0 0 5px rgba(59,132,97,.10)!important}
-  .feedback-dock{position:fixed;right:20px;bottom:20px;z-index:80;display:flex;align-items:center;gap:9px;flex-wrap:wrap;max-width:min(610px,calc(100vw - 32px));padding:10px 12px;background:rgba(250,252,250,.97);border:1px solid #dce7df;border-radius:15px;box-shadow:0 12px 35px rgba(27,58,43,.18);backdrop-filter:blur(12px);color:#40574a}
-  .feedback-dock[hidden],.feedback-list[hidden],.annotation-modal[hidden]{display:none!important}
-  .feedback-dock-title{font-size:11px;font-weight:750;white-space:nowrap;display:flex;align-items:center;gap:7px}
-  .feedback-status-dot{width:7px;height:7px;border-radius:50%;background:#4a9668;box-shadow:0 0 0 4px #e4f1e8}
-  .feedback-dock-count{font-size:10px;color:#658071;background:#edf4ef;padding:4px 8px;border-radius:20px;white-space:nowrap}
-  .feedback-dock button{border:1px solid #dce6df;background:#fff;color:#496454;border-radius:9px;padding:7px 10px;font-size:10px;white-space:nowrap}
-  .feedback-dock button:hover{background:#f0f6f1;border-color:#b8cebe}
-  .feedback-dock button.primary{background:#315f49;color:#fff;border-color:#315f49}
-  .feedback-dock button.primary:hover{background:#254d3a}
-  .feedback-list{position:fixed;right:20px;bottom:82px;width:min(390px,calc(100vw - 32px));max-height:min(58vh,520px);overflow:auto;z-index:81;background:#fff;border:1px solid #dfe8e1;border-radius:16px;box-shadow:0 16px 42px rgba(27,58,43,.17);padding:16px}
-  .feedback-list-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-  .feedback-list-head strong{font-size:13px;color:#304b3b}
-  .feedback-list-head button{border:0;background:transparent;color:#86938a;font-size:18px;padding:0 4px}
-  .feedback-list-empty{padding:22px 10px;text-align:center;color:#9aa69e;font-size:11px;background:#f8faf8;border-radius:11px}
-  .feedback-item{display:grid;grid-template-columns:25px minmax(0,1fr) auto;gap:9px;align-items:start;padding:11px 0;border-top:1px solid #edf1ed}
-  .feedback-item:first-child{border-top:0}
-  .feedback-item-num{width:23px;height:23px;border-radius:50%;background:#315f49;color:white;display:grid;place-items:center;font-size:10px;font-weight:700}
-  .feedback-item-title{font-size:11px;font-weight:700;color:#40584a;line-height:1.5}
-  .feedback-item-meta{font-size:10px;color:#98a39b;margin-top:3px}
-  .feedback-item-text{font-size:11px;color:#65746a;line-height:1.65;margin-top:5px;white-space:pre-wrap;word-break:break-word}
-  .feedback-item-actions{display:flex;gap:4px}
-  .feedback-item-actions button{border:0;background:transparent;color:#8a978e;font-size:10px;padding:3px}
-  .feedback-item-actions button:hover{color:#b35f53}
-  .annotation-pin{position:absolute;width:25px;height:25px;border:2px solid #fff;border-radius:50%;background:#315f49;color:#fff;display:grid;place-items:center;font-size:10px;font-weight:750;box-shadow:0 3px 10px rgba(25,54,40,.28);pointer-events:auto;cursor:pointer;transform:translate(-50%,-50%);z-index:82;padding:0}
-  .annotation-pin:hover{background:#b47c43;transform:translate(-50%,-50%) scale(1.12)}
-  .annotation-modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px;background:rgba(22,39,30,.38);backdrop-filter:blur(3px)}
-  .annotation-dialog{width:min(520px,100%);background:#fff;border:1px solid #e0e9e2;border-radius:18px;box-shadow:0 24px 70px rgba(14,37,24,.24);padding:23px}
-  .annotation-dialog-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:16px}
-  .annotation-dialog-eyebrow{font-size:9px;letter-spacing:.16em;color:#8a9b8f;margin-bottom:5px}
-  .annotation-dialog h3{font-family:Georgia,"Songti SC",serif;font-size:21px;color:#294737;margin:0;font-weight:600}
-  .annotation-dialog-close{border:0;background:#f4f7f4;color:#819087;border-radius:9px;width:30px;height:30px;font-size:18px}
-  .annotation-target{background:#f4f8f4;border:1px solid #e5eee6;border-radius:10px;padding:10px 12px;margin-bottom:15px}
-  .annotation-target-label{font-size:9px;color:#8b9a8f;margin-bottom:3px}
-  .annotation-target-text{font-size:11px;color:#47604f;line-height:1.6;word-break:break-word}
-  .annotation-field{display:block;margin:13px 0}
-  .annotation-field span{display:block;font-size:11px;font-weight:700;color:#52675a;margin-bottom:7px}
-  .annotation-field select,.annotation-field textarea{width:100%;min-width:0;border:1px solid #dfe8e1;border-radius:10px;background:#fbfcfb;color:#3e5346;padding:10px 11px;font-size:12px;outline:none}
-  .annotation-field select:focus,.annotation-field textarea:focus{border-color:#82a991;box-shadow:0 0 0 3px rgba(91,143,108,.11)}
-  .annotation-field textarea{min-height:112px;resize:vertical;line-height:1.65}
-  .annotation-dialog-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px}
-  .annotation-dialog-hint{font-size:10px;color:#9aa59d;line-height:1.5}
-  .annotation-dialog-actions{display:flex;gap:8px;flex:none}
-  .annotation-dialog-actions button{border:1px solid #dfe8e1;background:#fff;color:#617267;border-radius:9px;padding:9px 13px;font-size:11px}
-  .annotation-dialog-actions button.save{background:#315f49;border-color:#315f49;color:#fff;font-weight:650}
-  .annotation-dialog-actions button.save:hover{background:#254d3a}
-  .annotation-mode-hint{position:fixed;left:50%;top:82px;transform:translateX(-50%);z-index:79;background:rgba(49,95,73,.96);color:#fff;padding:8px 14px;border-radius:22px;font-size:11px;box-shadow:0 5px 18px rgba(30,70,47,.18);pointer-events:none;white-space:nowrap}
-  .annotation-mode-hint[hidden]{display:none}
-  @media(max-width:820px){.top-actions{gap:7px}.annotation-toggle{padding:7px 9px}.feedback-dock{right:10px;bottom:74px;gap:6px;padding:9px}.feedback-dock-title{width:100%}.annotation-mode-hint{top:66px}.feedback-list{right:10px;bottom:135px}}
-  @media(max-width:480px){.card-art-layer{height:420px}.top-actions .top-tag{display:none}.annotation-toggle{font-size:10px}.feedback-dock{left:10px;right:10px;max-width:none;justify-content:space-between}.feedback-dock button{padding:7px 8px}.annotation-dialog{padding:18px}.annotation-dialog-foot{align-items:flex-start;flex-direction:column}.annotation-dialog-actions{width:100%}.annotation-dialog-actions button{flex:1}}
+  @media(max-width:820px){.top-actions{gap:7px}}
+  @media(max-width:480px){.card-art-layer{height:420px}.top-actions .top-tag{display:none}}
 
 </style>
 </head>
@@ -250,7 +195,7 @@
   <main class="main">
     <header class="topbar">
       <div class="breadcrumb">学习空间　/　<b id="crumb">温故</b></div>
-      <div class="top-actions"><button class="annotation-toggle" id="annotationToggle" type="button" data-feedback-ui aria-pressed="false">✎ 标注模式</button><div class="top-tag"><span class="local-dot"></span>本地模式</div><div class="avatar">习</div></div>
+      <div class="top-actions"><div class="top-tag"><span class="local-dot"></span>本地模式</div><div class="avatar">习</div></div>
     </header>
 
     <div class="content">
@@ -365,35 +310,11 @@
 <nav class="mobile-nav"><button class="active" data-nav="温故"><b>↻</b>温故</button><button data-nav="知新"><b>▤</b>知新</button><button data-nav="识错"><b>◎</b>识错</button><button data-nav="打动我的一瞬"><b>♡</b>收藏</button></nav>
 <div class="toast" id="toast"></div>
 
-<div class="annotation-mode-hint" id="annotationModeHint" data-feedback-ui hidden>标注模式已开启 · 点击页面中需要修改的元素</div>
-<div class="feedback-dock" id="feedbackDock" data-feedback-ui hidden>
-  <div class="feedback-dock-title"><span class="feedback-status-dot"></span><span id="feedbackDockStatus">标注模式已开启</span></div>
-  <span class="feedback-dock-count" id="feedbackCount">0 条意见</span>
-  <button type="button" id="feedbackListToggle">查看反馈</button>
-  <button type="button" id="feedbackExport" class="primary">导出 JSON</button>
-  <button type="button" id="annotationExit">退出标注</button>
-</div>
-<div class="feedback-list" id="feedbackList" data-feedback-ui hidden>
-  <div class="feedback-list-head"><strong>本页修改意见</strong><button type="button" id="feedbackListClose" aria-label="关闭">×</button></div>
-  <div id="feedbackItems"></div>
-</div>
-<div class="annotation-modal" id="annotationModal" data-feedback-ui hidden>
-  <form class="annotation-dialog" id="annotationForm">
-    <div class="annotation-dialog-top">
-      <div><div class="annotation-dialog-eyebrow">PROTOTYPE FEEDBACK</div><h3 id="annotationDialogTitle">添加修改意见</h3></div>
-      <button type="button" class="annotation-dialog-close" id="annotationCancelTop" aria-label="关闭">×</button>
-    </div>
-    <div class="annotation-target"><div class="annotation-target-label">已选中页面元素</div><div class="annotation-target-text" id="annotationTargetText">页面元素</div></div>
-    <label class="annotation-field"><span>意见类型</span>
-      <select id="annotationCategory">
-        <option value="视觉样式">视觉样式</option><option value="布局调整">布局调整</option><option value="文案修改">文案修改</option><option value="交互功能">交互功能</option><option value="问题反馈">问题反馈</option><option value="其他">其他</option>
-      </select>
-    </label>
-    <label class="annotation-field"><span>具体修改意见</span><textarea id="annotationComment" placeholder="例如：卡片背景水墨太浓，希望整体再淡一些，文字区域保持清晰……" required></textarea></label>
-    <div class="annotation-dialog-foot"><div class="annotation-dialog-hint">意见会自动编号，并记录所选元素的位置和页面信息。</div><div class="annotation-dialog-actions"><button type="button" id="annotationCancel">取消</button><button type="submit" class="save">保存意见</button></div></div>
-  </form>
-</div>
-<div id="feedbackOverlay" data-feedback-ui aria-label="反馈标记层" style="position:absolute;inset:0;min-height:100%;pointer-events:none;z-index:82"></div>
+
+
+
+
+<div id="feedbackOverlay" aria-label="反馈标记层" style="position:absolute;inset:0;min-height:100%;pointer-events:none;z-index:82"></div>
 
 <script>
 (() => {
@@ -449,221 +370,6 @@
 })();
 </script>
 
-<script>
-(() => {
-  const $ = id => document.getElementById(id);
-  const STORAGE_KEY = 'xuer-shixi-prototype-feedback-v2';
-  const annotatable = 'button,h1,h2,h3,p,label,.hero,.hero-title,.panel,.flashcard,.card-meta,.question-text,.answer-box,.remark-box,.tip-panel,.summary-panel,.page-head,.brand,.nav-btn,.mode-tabs,.category,.setup-panel,.review-top,.date-chip,.topbar,.sidebar,.content';
-  let annotationMode = false;
-  let selectedTarget = null;
-  let annotations = [];
-
-  function escapeHtml(value) {
-    return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-  }
-  function trimText(value, max=110) {
-    const text = String(value || '').replace(/\s+/g, ' ').trim();
-    return text.length > max ? text.slice(0, max) + '…' : text;
-  }
-  function elementLabel(el) {
-    const parts = [];
-    if (el.id) parts.push('#' + el.id);
-    else if (el.classList && el.classList.length) parts.push('.' + [...el.classList].slice(0,2).join('.'));
-    else parts.push(el.tagName.toLowerCase());
-    const txt = trimText(el.innerText || el.getAttribute('aria-label') || el.getAttribute('title') || '', 72);
-    return txt ? `${parts.join(' ')} · ${txt}` : parts.join(' ');
-  }
-  function cssEscape(value) {
-    if (window.CSS && CSS.escape) return CSS.escape(value);
-    return String(value).replace(/([^a-zA-Z0-9_-])/g, '\\$1');
-  }
-  function selectorFor(el) {
-    if (!el || el === document.body) return 'body';
-    if (el.id) return '#' + cssEscape(el.id);
-    const path = [];
-    let node = el;
-    while (node && node.nodeType === 1 && node !== document.body) {
-      let part = node.tagName.toLowerCase();
-      const classes = [...node.classList].filter(c => !c.startsWith('annotation-') && c !== 'annotation-hover').slice(0,2);
-      if (classes.length) part += '.' + classes.map(cssEscape).join('.');
-      const parent = node.parentElement;
-      if (parent) {
-        const same = [...parent.children].filter(child => child.tagName === node.tagName);
-        if (same.length > 1) part += `:nth-of-type(${same.indexOf(node)+1})`;
-      }
-      path.unshift(part);
-      node = node.parentElement;
-    }
-    return path.length ? 'body > ' + path.join(' > ') : 'body';
-  }
-  function currentPageName() {
-    return (document.querySelector('h1')?.innerText || document.title || '原型页面').trim();
-  }
-  function saveLocal() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(annotations)); }
-    catch (err) { console.warn('反馈暂未能写入本地存储：', err); }
-  }
-  function setMode(on) {
-    annotationMode = !!on;
-    document.body.classList.toggle('annotation-mode', annotationMode);
-    if (!annotationMode) clearHover();
-    $('annotationToggle').classList.toggle('active', annotationMode);
-    $('annotationToggle').setAttribute('aria-pressed', String(annotationMode));
-    $('annotationToggle').textContent = annotationMode ? '✎ 退出标注' : '✎ 标注模式';
-    $('annotationModeHint').hidden = !annotationMode;
-    $('feedbackDock').hidden = !annotationMode && annotations.length === 0;
-    $('feedbackDockStatus').textContent = annotationMode ? '标注模式已开启' : '标注模式已暂停';
-    updateFeedbackUI();
-  }
-  function updateFeedbackUI() {
-    const count = annotations.length;
-    $('feedbackCount').textContent = `${count} 条意见`;
-    $('feedbackDock').hidden = !annotationMode && count === 0;
-    $('feedbackDockStatus').textContent = annotationMode ? '标注模式已开启' : '标注模式已暂停';
-    $('feedbackListToggle').textContent = $('feedbackList').hidden ? '查看反馈' : '收起反馈';
-    renderFeedbackList();
-  }
-  function addPin(item) {
-    const overlay = $('feedbackOverlay');
-    const pin = document.createElement('button');
-    pin.type = 'button';
-    pin.className = 'annotation-pin';
-    pin.textContent = item.id;
-    pin.title = `反馈 ${item.id}：${item.comment}`;
-    pin.setAttribute('data-feedback-ui','');
-    pin.style.left = `${item.pageX}px`;
-    pin.style.top = `${item.pageY}px`;
-    pin.addEventListener('click', event => {
-      event.stopPropagation();
-      $('feedbackList').hidden = false;
-      updateFeedbackUI();
-      const row = document.querySelector(`[data-feedback-row="${item.id}"]`);
-      if (row) { row.scrollIntoView({behavior:'smooth',block:'nearest'}); row.style.background='#f2f7f3'; setTimeout(()=>row.style.background='',1100); }
-    });
-    overlay.appendChild(pin);
-  }
-  function renderPins() {
-    $('feedbackOverlay').innerHTML = '';
-    annotations.forEach(addPin);
-  }
-  function renderFeedbackList() {
-    const host = $('feedbackItems');
-    if (!annotations.length) {
-      host.innerHTML = '<div class="feedback-list-empty">还没有修改意见。开启标注模式后，点击页面元素即可添加。</div>';
-      return;
-    }
-    host.innerHTML = annotations.map(item => `
-      <div class="feedback-item" data-feedback-row="${item.id}">
-        <div class="feedback-item-num">${item.id}</div>
-        <div><div class="feedback-item-title">${escapeHtml(item.elementLabel)}</div><div class="feedback-item-meta">${escapeHtml(item.category)} · ${escapeHtml(new Date(item.createdAt).toLocaleString())}</div><div class="feedback-item-text">${escapeHtml(item.comment)}</div></div>
-        <div class="feedback-item-actions"><button type="button" data-delete-feedback="${item.id}" title="删除这条意见">删除</button></div>
-      </div>`).join('');
-    host.querySelectorAll('[data-delete-feedback]').forEach(btn => btn.addEventListener('click', () => {
-      const id = Number(btn.dataset.deleteFeedback);
-      annotations = annotations.filter(item => item.id !== id);
-      saveLocal(); renderPins(); updateFeedbackUI();
-    }));
-  }
-  function openDialog(target, point) {
-    clearHover();
-    const rect = target.getBoundingClientRect();
-    selectedTarget = {
-      element: target,
-      selector: selectorFor(target),
-      label: elementLabel(target),
-      text: trimText(target.innerText || target.getAttribute('aria-label') || target.getAttribute('title') || '', 180),
-      pageX: Math.max(8, Math.min(window.scrollX + point.x, document.documentElement.scrollWidth - 8)),
-      pageY: Math.max(8, Math.min(window.scrollY + point.y, document.documentElement.scrollHeight - 8)),
-      rect: {x:Math.round(rect.x),y:Math.round(rect.y),width:Math.round(rect.width),height:Math.round(rect.height)}
-    };
-    $('annotationTargetText').textContent = selectedTarget.label;
-    $('annotationComment').value = '';
-    $('annotationCategory').value = '视觉样式';
-    $('annotationDialogTitle').textContent = `添加修改意见 #${annotations.length + 1}`;
-    $('annotationModal').hidden = false;
-    setTimeout(() => $('annotationComment').focus(), 50);
-  }
-  function clearHover() { document.querySelectorAll('.annotation-hover').forEach(el => el.classList.remove('annotation-hover')); }
-  function closeDialog() { $('annotationModal').hidden = true; selectedTarget = null; clearHover(); }
-  document.addEventListener('click', event => {
-    if (!annotationMode) return;
-    if (event.target.closest('[data-feedback-ui]')) return;
-    const target = event.target.closest(annotatable);
-    if (!target || target === document.documentElement || target === document.body) return;
-    event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation();
-    openDialog(target, {x:event.clientX,y:event.clientY});
-  }, true);
-  document.addEventListener('pointerover', event => {
-    if (!annotationMode || event.target.closest('[data-feedback-ui]')) return;
-    const target = event.target.closest(annotatable);
-    document.querySelectorAll('.annotation-hover').forEach(el => el.classList.remove('annotation-hover'));
-    if (target && target !== document.body && target !== document.documentElement) target.classList.add('annotation-hover');
-  }, true);
-  document.addEventListener('pointerout', event => {
-    if (event.target.closest('[data-feedback-ui]')) return;
-    const target = event.target.closest(annotatable);
-    if (target) target.classList.remove('annotation-hover');
-  }, true);
-  $('annotationToggle').addEventListener('click', () => setMode(!annotationMode));
-  $('annotationExit').addEventListener('click', () => setMode(false));
-  $('feedbackListToggle').addEventListener('click', () => { $('feedbackList').hidden = !$('feedbackList').hidden; updateFeedbackUI(); });
-  $('feedbackListClose').addEventListener('click', () => { $('feedbackList').hidden = true; updateFeedbackUI(); });
-  $('annotationCancel').addEventListener('click', closeDialog);
-  $('annotationCancelTop').addEventListener('click', closeDialog);
-  $('annotationModal').addEventListener('click', event => { if (event.target === $('annotationModal')) closeDialog(); });
-  $('annotationForm').addEventListener('submit', event => {
-    event.preventDefault();
-    const comment = $('annotationComment').value.trim();
-    if (!comment || !selectedTarget) return;
-    const item = {
-      id: annotations.reduce((max, row) => Math.max(max, Number(row.id)||0), 0) + 1,
-      category: $('annotationCategory').value,
-      comment,
-      page: currentPageName(),
-      elementLabel: selectedTarget.label,
-      selector: selectedTarget.selector,
-      elementText: selectedTarget.text,
-      pageX: selectedTarget.pageX,
-      pageY: selectedTarget.pageY,
-      targetRect: selectedTarget.rect,
-      viewport: {width:window.innerWidth,height:window.innerHeight},
-      createdAt: new Date().toISOString()
-    };
-    annotations.push(item);
-    saveLocal(); addPin(item); closeDialog(); updateFeedbackUI();
-    if (typeof window.toast === 'function') window.toast(`已保存修改意见 #${item.id}`);
-    else { const toast=$('toast'); if(toast){toast.textContent=`已保存修改意见 #${item.id}`;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2200);} }
-  });
-  $('feedbackExport').addEventListener('click', () => {
-    if (!annotations.length) { alert('目前还没有修改意见。'); return; }
-    const payload = {
-      format: 'xuer-shixi-prototype-feedback',
-      formatVersion: 1,
-      prototype: document.title,
-      page: currentPageName(),
-      exportedAt: new Date().toISOString(),
-      viewport: {width:window.innerWidth,height:window.innerHeight,devicePixelRatio:window.devicePixelRatio||1},
-      instructions: '请根据 feedback 数组中的意见修改对应原型。selector 用于定位页面元素，elementLabel 和 elementText 用于辅助识别。',
-      feedback: annotations.map(({id,category,comment,page,elementLabel,selector,elementText,pageX,pageY,targetRect,viewport,createdAt}) => ({id,category,comment,page,elementLabel,selector,elementText,pageX,pageY,targetRect,viewport,createdAt}))
-    };
-    const blob = new Blob([JSON.stringify(payload,null,2)], {type:'application/json;charset=utf-8'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = `学而时习之_原型修改反馈_${new Date().toISOString().slice(0,10)}.json`;
-    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-  });
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') {
-      if (!$('annotationModal').hidden) closeDialog();
-      else if (!$('feedbackList').hidden) $('feedbackList').hidden = true;
-      else if (annotationMode) setMode(false);
-    }
-  });
-  try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    if (Array.isArray(saved)) annotations = saved.filter(item => item && Number.isFinite(Number(item.id)) && typeof item.comment === 'string');
-  } catch (err) { annotations = []; }
-  renderPins(); updateFeedbackUI();
-})();
 </script>
 
 </body>
