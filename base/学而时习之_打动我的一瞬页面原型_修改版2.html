@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>学而时习之 · 打动我的一瞬</title><style>
+
+:root{--bg:#f5f7f4;--panel:#fff;--ink:#263830;--muted:#849189;--line:#e5ebe6;--green:#32664f;--dark:#214b3b;--pale:#eaf2ec;--sage:#91aa98;--gold:#b88b55;--red:#b76557;--shadow:0 12px 32px rgba(34,63,50,.055);--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 Inter,"PingFang SC","Microsoft YaHei",sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:220px 1fr}.sidebar{background:#fff;border-right:1px solid var(--line);padding:25px 16px;display:flex;flex-direction:column}.brand{display:flex;gap:11px;align-items:center;padding:0 12px 34px}.mark{width:38px;height:38px;border-radius:13px;background:var(--dark);color:white;display:grid;place-items:center;font:22px Georgia}.brand b{font:700 17px Georgia}.brand small{display:block;color:#93a099;font-size:10px;letter-spacing:.12em}.navlabel{padding:0 13px 9px;color:#a1aaa5;font-size:10px;letter-spacing:.14em}.nav{display:grid;gap:5px}.nav button{border:0;background:none;text-align:left;padding:11px 13px;border-radius:12px;color:#68766f}.nav button.active{background:var(--pale);color:var(--dark);font-weight:700}.nav .count{float:right;color:#8b9790;background:#f0f3f0;padding:1px 7px;border-radius:20px;font-size:11px}.spacer{flex:1}.side-note{margin:16px 6px;padding:13px;background:#f7f8f5;border:1px solid #eef1ec;border-radius:14px;color:#68766f;font-size:11px;line-height:1.7}.side-note b{display:block;color:#3d5549;font-size:12px}.main{min-width:0}.topbar{height:66px;background:#ffffffd9;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 38px;position:sticky;top:0;z-index:4;backdrop-filter:blur(10px);color:#87928c;font-size:12px}.topbar strong{color:#3d5549}.top-actions{display:flex;gap:9px;align-items:center}.top-tag{border:1px solid var(--line);border-radius:20px;padding:6px 11px;background:white}.content{max-width:1500px;margin:auto;padding:32px 38px 60px}.head{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin-bottom:22px}.eyebrow{font-size:10px;color:#9aa49e;letter-spacing:.18em;margin-bottom:7px}h1{font:600 30px/1.2 Georgia,"Songti SC",serif;letter-spacing:.04em;margin:0;color:#263a31}.desc{margin:9px 0 0;color:#7f8b84;font-size:13px}.btn{border:1px solid #dce7de;background:#fff;color:#4b6756;border-radius:10px;padding:9px 13px;font-size:12px}.btn.primary{border:0;background:var(--dark);color:#fff;padding:11px 17px;font-weight:650}.btn.danger{color:var(--red);border-color:#ead8d4}.btn:disabled{opacity:.45;cursor:not-allowed}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:17px}.stat{background:white;border:1px solid var(--line);border-radius:15px;padding:15px 17px}.stat small{color:#929e95;font-size:11px}.stat strong{display:block;font:23px Georgia;color:#355744;margin-top:3px}.toolbar{padding:15px 17px;margin-bottom:15px}.toolbar-label{font:600 14px Georgia,serif;color:#344c3d;margin-bottom:10px}.toolbar-controls{display:grid;grid-template-columns:1fr 1fr 1.5fr 1.5fr 1fr;gap:10px}.toolbar-field{display:block}.toolbar-field span{display:block;color:#89968d;font-size:10px;margin-bottom:5px}.toolbar-field select,.toolbar-field input{width:100%;min-width:0;border:1px solid #e2e9e3;background:#fbfcfb;border-radius:9px;padding:9px 10px;color:#43564a;outline:none;font-size:12px}.workspace{display:block}.panel{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}.filters{padding:17px 13px}.panel-title{font:600 15px Georgia,"Songti SC",serif;color:#344c3d;margin:0 0 14px}.filter-group{margin:17px 0}.filter-label{font-size:10px;color:#a0aaa3;letter-spacing:.12em;margin:0 8px 7px}.filter{width:100%;border:0;background:transparent;text-align:left;padding:9px 10px;border-radius:9px;color:#718077;font-size:12px}.filter.active{background:#edf4ee;color:#315c45;font-weight:700}.filter em{float:right;font-style:normal;color:#9aa49d}.divider{height:1px;background:var(--line);margin:14px 3px}.list-panel{padding:16px;min-height:650px}.list-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}.search{width:min(300px,100%);border:1px solid #e2e9e3;background:#fbfcfb;border-radius:10px;padding:9px 12px;color:#43564a;outline:none;font-size:12px}.list-tools{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.cards{display:grid;gap:10px}.pagination{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}.page-indicator{font-size:11px;color:#728177;min-width:48px;text-align:center}.jump-page{font-size:11px;color:#89968d;display:flex;align-items:center;gap:5px}.jump-page input{width:48px;border:1px solid #e2e9e3;border-radius:7px;padding:7px;text-align:center;color:#43564a}.card{border:1px solid #e7ede8;border-radius:14px;padding:14px 15px;background:#fff;cursor:pointer;transition:.15s}.card:hover{border-color:#c8d8cb}.card.selected{border-color:#8eaf97;background:#f9fcf9;box-shadow:0 0 0 2px #e9f2ea}.card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.card-main{display:flex;align-items:flex-start;gap:11px}.card-select{width:17px;height:17px;flex:0 0 17px;margin:3px 0 0;accent-color:#476b52;cursor:pointer}.card-body{min-width:0;flex:1}.tag{font-size:10px;padding:4px 8px;border-radius:20px;background:#eef5ef;color:#53755d}.tag.poem{background:#f5f0e7;color:#98784b}.tag.article{background:#edf1f3;color:#617987}.tag.excerpt{background:#eef5ef;color:#53755d}.muted{font-size:10px;color:#9aa49d}.card-title{font:600 15px Georgia,"Songti SC",serif;color:#344c3d;margin:0 0 6px}.card-content{font:13px/1.8 "Songti SC",serif;color:#5b6b60;margin:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.card-foot{display:flex;justify-content:space-between;gap:10px;margin-top:10px;color:#9aa49d;font-size:10px}.empty{padding:45px 15px;text-align:center;color:#929e95}.detail{display:none}.detail-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.detail h2{font:600 17px Georgia,serif;color:#344c3d;margin:0}.field{display:block;margin:13px 0}.field span{display:block;color:#89968d;font-size:11px;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid #e1e9e2;background:#fbfcfb;border-radius:9px;padding:9px 10px;color:#43564a;outline:none;font-size:12px}.field textarea{min-height:105px;resize:vertical;line-height:1.7}.field textarea.note{min-height:76px}.source-box{border:1px solid #e7ede8;background:#f8faf8;border-radius:11px;padding:11px 12px;font-size:11px;color:#78867d;line-height:1.7}.source-box strong{display:block;color:#536b5a;font-size:12px;margin-bottom:3px}.detail-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.hint{font-size:10px;color:#a0aaa3;line-height:1.6;margin-top:7px}.ai-panel{margin-top:18px;padding:16px}.ai-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.ai-head h2{font:600 16px Georgia,serif;margin:0;color:#344c3d}.ai-desc{color:#8c9990;font-size:11px;margin:5px 0 12px}.ai-task{border:1px solid #e6ece7;border-radius:12px;padding:12px;margin-top:9px}.ai-task strong{font-size:12px;color:#496251}.ai-task p{font-size:11px;color:#8a978e;margin:4px 0 9px}.ai-task-actions{display:flex;gap:7px;flex-wrap:wrap}.progress{height:5px;background:#edf1ed;border-radius:8px;margin:9px 0;overflow:hidden}.progress i{display:block;width:66%;height:100%;background:#85a58d}.modal-backdrop{position:fixed;inset:0;background:#20352c66;display:none;align-items:center;justify-content:center;z-index:20;padding:20px}.modal-backdrop.show{display:flex}.modal{width:min(540px,100%);background:white;border-radius:18px;padding:22px;box-shadow:0 20px 60px #152a2040}.modal h2{font:600 19px Georgia,serif;margin:0 0 6px;color:#344c3d}.modal p{font-size:12px;color:#829087;margin:0 0 16px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.card-detail-modal{width:min(760px,100%);max-height:min(88vh,900px);overflow:auto;background:#f8faf7;border:1px solid #e2eae2;border-radius:22px;padding:22px;box-shadow:0 24px 70px #152a2040}.card-detail-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.card-detail-face{min-height:310px;background:#fff;border:1px solid #e5ece6;border-radius:18px;padding:34px 42px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 10px 30px rgba(34,63,50,.045)}.card-detail-face .card-detail-title{font:600 25px/1.5 Georgia,"Songti SC",serif;color:#344c3d;text-align:center;margin:16px 0 20px}.card-detail-face .card-detail-body{font:17px/2 "Songti SC",serif;color:#52665a;text-align:center;white-space:pre-wrap;margin:0}.card-detail-note{margin-top:14px;padding:14px 18px;border-radius:13px;background:#edf3ee;color:#617367;line-height:1.8}.card-detail-meta{margin-top:12px;color:#89968d;font-size:11px;text-align:center}.card-detail-editor{display:grid;gap:10px;margin-top:14px}.card-detail-editor input,.card-detail-editor textarea,.card-detail-editor select{width:100%;border:1px solid #dfe8e0;background:#fff;border-radius:10px;padding:11px 12px;color:#43564a;font:13px/1.7 inherit}.card-detail-editor textarea{min-height:120px;resize:vertical}.card-detail-actions{display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap;margin-top:16px}.card-detail-actions .left,.card-detail-actions .right{display:flex;gap:8px;flex-wrap:wrap}.card-detail-modal .muted{font-size:11px}@media(max-width:600px){.card-detail-modal{padding:14px;border-radius:16px}.card-detail-face{padding:25px 18px;min-height:260px}.card-detail-face .card-detail-title{font-size:21px}.card-detail-face .card-detail-body{font-size:15px}}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#294e3d;color:#fff;padding:10px 16px;border-radius:10px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:50}.toast.show{opacity:1}
+@media(max-width:1100px){.toolbar-controls{grid-template-columns:repeat(3,1fr)}}@media(max-width:760px){.list-head{align-items:flex-start;flex-direction:column}.app{grid-template-columns:1fr}.sidebar{display:none}.content{padding:22px 14px}.topbar{padding:0 16px}.stats{grid-template-columns:repeat(2,1fr)}.toolbar-controls{grid-template-columns:1fr 1fr}.list-head{align-items:flex-start;flex-direction:column}}
+
+.toolbar-controls{grid-template-columns:1fr 1.5fr 1.5fr 1fr}
+.favorite-mark{color:#b58a52;font-size:14px;margin-left:6px}
+.favorite-note{margin-top:12px;padding:12px 14px;background:#f5f7f3;border:1px solid #e8eee7;border-radius:11px;color:#68796e;font-size:12px;line-height:1.8}
+.favorite-note b{display:block;color:#526b59;margin-bottom:4px}
+.detail-snapshot{background:#fff;border:1px solid #e5ece6;border-radius:17px;padding:28px 34px;min-height:250px;display:flex;flex-direction:column;justify-content:center}
+.detail-snapshot h2{font:600 24px/1.5 Georgia,"Songti SC",serif;text-align:center;color:#344c3d;margin:16px 0}
+.detail-snapshot p{font:16px/2 "Songti SC",serif;color:#52665a;text-align:center;white-space:pre-wrap;margin:0}
+.detail-meta{margin-top:14px;text-align:center;color:#929e95;font-size:11px}
+.detail-toolbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px}
+.detail-toolbar .left,.detail-toolbar .right{display:flex;gap:8px;flex-wrap:wrap}
+.note-editor{width:100%;min-height:90px;border:1px solid #e1e9e2;background:#fbfcfb;border-radius:9px;padding:10px;color:#43564a;font-size:12px;line-height:1.7;resize:vertical}
+.snapshot-tip{font-size:11px;color:#8a978e;line-height:1.7;margin-top:10px}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{display:none}.content{padding:22px 16px}.topbar{padding:0 16px}}
+@media(max-width:600px){.toolbar-controls{grid-template-columns:1fr 1fr}.detail-snapshot{padding:24px 18px}.detail-snapshot h2{font-size:21px}}
+
+.card-detail-face{background:#fff;border:1px solid #e5ece6;border-radius:17px;padding:24px 28px}
+.card-detail-editor{display:grid;gap:12px;margin:16px 0}
+.card-detail-editor input,.card-detail-editor textarea,.card-detail-editor select{width:100%;border:1px solid #dfe8e0;border-radius:9px;padding:11px 12px;background:#fbfcfb;color:#43564a;font:13px inherit}
+.card-detail-editor textarea{min-height:100px;resize:vertical;line-height:1.7}.edit-field-hint{font-size:11px;color:#98a39b;line-height:1.6;margin:-2px 0 7px}
+.card-detail-editor label.field span{display:block;font-size:11px;color:#7b8a80;margin-bottom:6px}
+.card-detail-note{margin-top:14px;padding:12px 14px;background:#f5f7f3;border:1px solid #e8eee7;border-radius:11px;color:#68796e;font-size:12px;line-height:1.8}
+</style></head><body>
+<div class="app">
+<aside class="sidebar">
+ <div class="brand"><div class="mark">习</div><div><b>学而时习之</b><small>LEARN · REFLECT · GROW</small></div></div>
+ <div class="navlabel">学习空间</div>
+ <nav class="nav">
+  <button>◫　知新 <span class="count">材料</span></button>
+  <button>▤　卡片管理</button>
+  <button>◷　温故</button>
+  <button>⌁　识错</button>
+  <button class="active">♡　打动我的一瞬</button>
+ </nav>
+ <div class="spacer"></div>
+ <div class="side-note"><b>打动我的一瞬 · 使用提示</b>收藏的卡片会保存独立内容快照。即使原卡片被删除，收藏内容仍会保留。收藏内容与原卡片相互独立；卡片备注随收藏快照一并保留。</div>
+ <div style="border-top:1px solid var(--line);padding:15px 8px 0;color:#839088;font-size:12px">●　本地原型演示</div>
+</aside>
+<main class="main">
+<header class="topbar"><div>学习空间　/　<strong>打动我的一瞬</strong></div><div class="top-actions"><span class="top-tag">本地数据演示</span></div></header>
+<div class="content">
+ <div class="head"><div><div class="eyebrow">YOUR FAVORITE MOMENTS</div><h1>打动我的一瞬</h1><p class="desc">留住那些值得反复回味的知识与片段。</p></div></div>
+ <section class="panel toolbar">
+  <div class="toolbar-label">收藏管理</div>
+  <div class="toolbar-controls">
+   <label class="toolbar-field"><span>材料类型</span><select id="materialType"><option value="all">全部类型</option><option value="poetry">诗词</option><option value="article">文章</option><option value="book">书籍</option></select></label>
+   <label class="toolbar-field"><span>材料名称 / 作者</span><input id="search" placeholder="搜索材料名称或作者"></label>
+   <label class="toolbar-field"><span>卡片标题 / 内容</span><input id="contentSearch" placeholder="搜索标题或卡片内容"></label>
+   <label class="toolbar-field"><span>排序方式</span><select id="sort"><option value="new">最近收藏</option><option value="old">最早收藏</option><option value="title">标题顺序</option></select></label>
+  </div>
+ </section>
+ <section class="panel list-panel">
+  <div class="list-head"><div><h2 class="panel-title" style="margin:0">已收藏的卡片</h2><div class="muted" style="margin-top:5px">点击卡片查看收藏快照与独立备注</div></div><div class="list-tools"><span class="muted" id="listCount">0 张</span></div></div>
+  <div class="cards" id="cardList"></div><div class="empty" id="empty" hidden>还没有符合条件的收藏内容。</div>
+  <div class="pagination" id="pagination"><button class="btn" id="firstPage">首页</button><button class="btn" id="prevPage">上一页</button><span class="page-indicator" id="pageIndicator">1 / 1</span><button class="btn" id="nextPage">下一页</button><button class="btn" id="lastPage">末页</button><label class="jump-page">到 <input id="jumpPage" type="number" min="1" value="1"> 页</label><button class="btn" id="goPage">跳转</button></div>
+ </section>
+</div></main></div>
+<div class="modal-backdrop" id="detailModal"><div class="card-detail-modal">
+ <div class="card-detail-top"><div><div class="eyebrow">FAVORITE SNAPSHOT</div><strong id="detailId" style="color:#58705f;font-size:12px">FAV-001</strong></div><button class="btn" id="closeDetail">关闭 ×</button></div>
+ <div id="detailContent"></div>
+</div></div>
+<div class="modal-backdrop" id="confirmModal"><div class="modal"><h2>确认取消收藏？</h2><p>取消后，该条收藏快照将从打动我的一瞬移除；不会删除原卡片。</p><div class="modal-actions"><button class="btn" data-close="confirmModal">再想想</button><button class="btn danger" id="confirmRemove">取消收藏</button></div></div></div>
+<div class="toast" id="toast"></div>
+
+
+
+
+<script>
+const $=id=>document.getElementById(id);
+const typeName={poem:'诗词卡',article:'文章卡',excerpt:'摘录卡'};
+const materialName={poetry:'诗词',article:'文章',book:'书籍'};
+const sourceCards=[
+
+{id:1,type:'poem',materialType:'poetry',title:'春晓',content:'春眠不觉晓，处处闻啼鸟。夜来风雨声，花落知多少。',note:'清晨醒来听见鸟鸣，诗中有一种自然的轻盈感。',source:'《唐诗三百首》',loc:'卷一 · 春晓',author:'孟浩然',date:'2026-11-21',status:'manual',available:true},
+{id:2,type:'excerpt',materialType:'book',title:'温故而知新',content:'温故而知新，可以为师矣。',note:'新知不一定来自新材料，也可能来自重新理解旧知识。',source:'《论语·学而》',loc:'第二章 · 为政',author:'孔子',date:'2026-11-21',status:'ai',available:true},
+{id:3,type:'article',materialType:'article',title:'长期主义与复利效应',content:'复利的核心并不只是收益率，而是时间、持续投入与正向反馈共同作用的结果。',note:'可联系个人技能积累。',source:'《长期主义的力量》',loc:'第三节 · 复利',author:'林间',date:'2026-11-20',status:'manual',available:true},
+{id:4,type:'poem',materialType:'poetry',title:'登鹳雀楼',content:'白日依山尽，黄河入海流。欲穷千里目，更上一层楼。',note:'',source:'《唐诗三百首》',loc:'卷二 · 登鹳雀楼',author:'王之涣',date:'2026-11-19',status:'manual',available:true},
+{id:5,type:'excerpt',materialType:'book',title:'第一性原理',content:'从事物最基本的原理出发，重新审视问题，而不是简单类比已有经验。',note:'遇到复杂问题时，先拆解假设。',source:'《创新者的方法》',loc:'第一章 · 思考方法',author:'—',date:'2026-11-18',status:'ai',available:true},
+{id:6,type:'article',materialType:'article',title:'注意力的稀缺性',content:'注意力是一种有限资源，信息越丰富，主动选择关注什么就越重要。',note:'',source:'《注意力经济》',loc:'第一节',author:'—',date:'2026-11-17',status:'manual',available:false},
+{id:7,type:'poem',materialType:'poetry',title:'观书有感',content:'半亩方塘一鉴开，天光云影共徘徊。问渠那得清如许？为有源头活水来。',note:'把学习比作源头活水。',source:'《朱子文集》',loc:'观书有感',author:'朱熹',date:'2026-11-16',status:'manual',available:true},
+{id:8,type:'excerpt',materialType:'book',title:'刻意练习',content:'有效练习需要明确目标、及时反馈，以及持续修正错误。',note:'与单纯重复不同。',source:'《刻意练习》',loc:'第二章',author:'—',date:'2026-11-15',status:'manual',available:true},
+{id:9,type:'excerpt',materialType:'book',title:'系统思考',content:'理解一个系统，不能只看单个要素，还要观察要素之间的关系与反馈回路。',note:'',source:'《第五项修炼》',loc:'系统基模',author:'彼得·圣吉',date:'2026-11-14',status:'manual',available:true},
+{id:10,type:'poem',materialType:'poetry',title:'竹里馆',content:'独坐幽篁里，弹琴复长啸。深林人不知，明月来相照。',note:'',source:'《王右丞集》',loc:'竹里馆',author:'王维',date:'2026-11-13',status:'manual',available:true},
+{id:11,type:'article',materialType:'article',title:'知识的结构化表达',content:'结构化表达强调先结论后论据，并通过清晰的层级关系组织信息。',note:'可应用于会议汇报。',source:'《金字塔原理》',loc:'序言',author:'芭芭拉·明托',date:'2026-11-12',status:'manual',available:true},
+{id:12,type:'excerpt',materialType:'book',title:'复盘的关键问题',content:'目标是什么？实际结果如何？差异在哪里？下一次采取什么行动？',note:'',source:'项目管理笔记',loc:'复盘方法',author:'个人笔记',date:'2026-11-11',status:'manual',available:true}
+];
+/* 打动我的一瞬保存独立快照；演示中从卡片管理样例复制快照，不依赖原卡片后续状态。 */
+let favorites=sourceCards.filter(c=>[1,2,3,5,7,9,11].includes(c.id)).map((c,i)=>({...c,snapshot:{title:c.title,content:c.content,note:c.note,source:c.source,loc:c.loc,author:c.author,materialType:c.materialType,type:c.type},favoriteDate:['2026-11-22','2026-11-22','2026-11-21','2026-11-20','2026-11-19','2026-11-18','2026-11-17'][i]}));
+let currentId=null,pendingRemove=null,currentPage=1,pageSize=5,detailEditing=false;
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
+function filtered(){let q=$('search').value.trim().toLowerCase(),cq=$('contentSearch').value.trim().toLowerCase(),mt=$('materialType').value;let a=favorites.filter(f=>(mt==='all'||f.snapshot.materialType===mt)&&(!q||(f.snapshot.source+f.snapshot.author).toLowerCase().includes(q))&&(!cq||(f.snapshot.title+f.snapshot.content).toLowerCase().includes(cq)));let s=$('sort').value;if(s==='title')a.sort((x,y)=>x.snapshot.title.localeCompare(y.snapshot.title,'zh'));else if(s==='old')a.sort((x,y)=>x.favoriteDate.localeCompare(y.favoriteDate));else a.sort((x,y)=>y.favoriteDate.localeCompare(x.favoriteDate));return a}
+function render(){let a=filtered(),pages=Math.max(1,Math.ceil(a.length/pageSize));currentPage=Math.min(currentPage,pages);let items=a.slice((currentPage-1)*pageSize,currentPage*pageSize);$('cardList').innerHTML=items.map(f=>`<article class="card" data-id="${f.id}"><div class="card-main"><div class="card-body"><div class="card-top"><span class="tag ${f.snapshot.type}">${typeName[f.snapshot.type]}</span><span class="muted">收藏于 ${f.favoriteDate}</span></div><h3 class="card-title">${esc(f.snapshot.title)} <span class="favorite-mark">♥</span></h3><p class="card-content">${esc(f.snapshot.content)}</p><div class="card-foot"><span>${esc(f.snapshot.source)} · ${esc(f.snapshot.loc)}</span><span>${materialName[f.snapshot.materialType]}</span></div></div></div></article>`).join('');$('empty').hidden=!!a.length;$('listCount').textContent=a.length+' 张';$('pageIndicator').textContent=`${currentPage} / ${pages}`;$('jumpPage').max=pages;$('jumpPage').value=currentPage;$('pagination').style.display=a.length?'flex':'none';$('firstPage').disabled=$('prevPage').disabled=currentPage===1;$('nextPage').disabled=$('lastPage').disabled=currentPage===pages;document.querySelectorAll('.card[data-id]').forEach(el=>el.onclick=()=>openDetail(+el.dataset.id))}
+function current(){return favorites.find(f=>f.id===currentId)}
+function openDetail(id){currentId=id;detailEditing=false;renderDetail();$('detailModal').classList.add('show')}
+function renderDetail(){
+ let f=current();if(!f)return;let s=f.snapshot;
+ $('detailId').textContent='FAV-'+String(f.id).padStart(3,'0');
+ if(!detailEditing){
+  $('detailContent').innerHTML=`<div class="detail-snapshot"><span class="tag ${s.type}">${typeName[s.type]} · 独立收藏快照</span><h2>${esc(s.title)}</h2><p>${esc(s.content)}</p><div class="detail-meta">${esc(s.source)} · ${esc(s.loc)} · ${esc(s.author||'')}</div></div>${s.note?`<div class="card-detail-note"><strong style="display:block;margin-bottom:4px;color:#4c6654">卡片备注</strong>${esc(s.note)}</div>`:''}<div class="snapshot-tip">这份内容来自收藏时保存的卡片快照。即使原卡片被删除，收藏内容仍会保留；这里展示和编辑的备注就是卡片备注。</div><div class="detail-toolbar"><div class="left"><button class="btn" id="editCard">编辑卡片</button><button class="btn" id="viewSource">查看原文</button></div><div class="right"><button class="btn danger" id="removeFavorite">取消收藏</button></div></div>`;
+  $('editCard').onclick=()=>{detailEditing=true;renderDetail()};
+  $('removeFavorite').onclick=()=>{pendingRemove=f.id;$('confirmModal').classList.add('show')};
+  $('viewSource').onclick=()=>toast(f.available?'正式版本将跳转到原文对应位置（演示）':'原文暂不可访问，收藏快照仍可查看');
+ }else{
+  $('detailContent').innerHTML=`<div class="card-detail-face"><div style="text-align:center;color:#8b9a8e;font-size:11px;letter-spacing:.12em;margin-bottom:12px">编辑知识卡片</div><div class="card-detail-editor">
+<label class="field" style="margin:0"><span>卡片类型</span><div class="edit-field-hint">用于区分卡片所属类型，选择诗词卡、文章卡或摘录卡。</div><select id="editType"><option value="poem" ${s.type==='poem'?'selected':''}>诗词卡</option><option value="article" ${s.type==='article'?'selected':''}>文章卡</option><option value="excerpt" ${s.type==='excerpt'?'selected':''}>摘录卡</option></select></label>
+<label class="field" style="margin:0"><span>卡片标题</span><div class="edit-field-hint">填写这张知识卡片的名称或主题，便于在卡片列表中识别。</div><input id="editTitle" aria-label="卡片标题" value="${esc(s.title).replace(/`/g,'&#96;')}" placeholder="请输入卡片标题"></label>
+<label class="field" style="margin:0"><span>卡片正文</span><div class="edit-field-hint">填写需要记忆、理解或复习的核心内容；这是卡片的主要内容。</div><textarea id="editContent" aria-label="卡片正文" placeholder="请输入卡片正文">${esc(s.content)}</textarea></label>
+<label class="field" style="margin:0"><span>卡片备注</span><div class="edit-field-hint">填写补充解释、个人理解或记忆提示。备注与卡片一起保存。</div><textarea id="editNote" aria-label="卡片备注" placeholder="请输入卡片备注（选填）">${esc(s.note||'')}</textarea></label>
+</div><div class="card-detail-meta"><strong>来源材料：</strong>${esc(s.source)}　<strong>原文位置：</strong>${esc(s.loc)}　<strong>作者：</strong>${esc(s.author||'未填写')}</div></div><div class="detail-toolbar"><div class="left"><button class="btn" id="cancelEdit">取消编辑</button></div><div class="right"><button class="btn primary" id="saveCard">保存修改</button></div></div>`;
+  $('cancelEdit').onclick=()=>{detailEditing=false;renderDetail()};
+  $('saveCard').onclick=()=>{s.type=$('editType').value;s.title=$('editTitle').value.trim()||'未命名卡片';s.content=$('editContent').value;s.note=$('editNote').value;f.type=s.type;f.title=s.title;f.content=s.content;f.note=s.note;detailEditing=false;render();renderDetail();toast('卡片修改已保存（演示）')};
+ }
+}
+$('closeDetail').onclick=()=>$('detailModal').classList.remove('show');
+$('confirmRemove').onclick=()=>{favorites=favorites.filter(f=>f.id!==pendingRemove);$('confirmModal').classList.remove('show');$('detailModal').classList.remove('show');pendingRemove=null;render();toast('已从打动我的一瞬移除，原卡片不受影响（演示）')};
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).classList.remove('show'));
+document.querySelectorAll('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+['search','contentSearch','materialType','sort'].forEach(id=>$(id).addEventListener(id==='search'||id==='contentSearch'?'input':'change',()=>{currentPage=1;render()}));
+$('firstPage').onclick=()=>{currentPage=1;render()};$('prevPage').onclick=()=>{currentPage=Math.max(1,currentPage-1);render()};$('nextPage').onclick=()=>{currentPage++;render()};$('lastPage').onclick=()=>{currentPage=Math.ceil(filtered().length/pageSize);render()};$('goPage').onclick=()=>{let n=Number($('jumpPage').value)||1;currentPage=Math.max(1,Math.min(Math.ceil(filtered().length/pageSize),n));render()};
+render();
+</script></body></html>
