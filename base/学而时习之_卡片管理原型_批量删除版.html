@@ -24,7 +24,7 @@
 </div></main></div>
 <div class="modal-backdrop" id="cardDetailModal" role="dialog" aria-modal="true" aria-label="卡片详情"><div class="card-detail-modal"><div class="card-detail-top"><div><div class="eyebrow">KNOWLEDGE CARD</div><strong id="cardDetailId" style="color:#58705f;font-size:12px">CARD-001</strong></div><button class="btn" id="closeCardDetail">关闭 ×</button></div><div id="cardDetailContent"></div></div></div>
 <div class="modal-backdrop" id="sourceModal"><div class="modal"><h2 id="sourceTitle">原文回溯</h2><p>此处展示卡片关联的材料及原文位置（演示数据）。</p><div class="source-box" id="sourceBody"></div><div class="modal-actions"><button class="btn" data-close="sourceModal">关闭</button><button class="btn primary" id="openSource">跳转到原文</button></div></div></div>
-<div class="modal-backdrop" id="deleteModal"><div class="modal"><h2>确认永久删除卡片？</h2><p>卡片删除后无法恢复。若该卡片已被收藏，收藏中的独立内容快照仍会保留。</p><div class="modal-actions"><button class="btn" data-close="deleteModal">取消</button><button class="btn danger" id="confirmDelete">永久删除</button></div></div></div>
+<div class="modal-backdrop" id="deleteModal"><div class="modal"><h2>确认永久删除卡片？</h2><p>卡片删除后无法恢复。若该卡片已被收藏，收藏中的独立内容快照仍会保留。</p><div class="modal-actions"><button class="btn" data-close="deleteModal">取消</button><button type="button" class="btn danger" id="confirmDelete">永久删除</button></div></div></div>
 <div class="modal-backdrop" id="aiReviewModal"><div class="modal"><h2>审核 AI 候选卡片</h2><p>逐张查看候选内容，选择通过或舍弃。审核进度会保存，之后可以继续。</p><div class="source-box"><b id="candidateTitle">候选卡片 3 / 6</b><div id="candidateText" style="margin-top:7px;color:#53685a">温故而知新，可以为师矣。温习旧知识时获得新的理解与体会。</div></div><div class="modal-actions" style="justify-content:space-between;flex-wrap:wrap"><div><button class="btn" id="prevCandidate">上一条</button> <button class="btn" id="nextCandidate">下一条</button></div><div><button class="btn" id="rejectCandidate">舍弃</button> <button class="btn" data-close="aiReviewModal">稍后继续</button> <button class="btn primary" id="approveCandidate">通过并保存</button></div></div></div></div>
 <div class="toast" id="toast"></div>
 
@@ -107,17 +107,18 @@ $('bulkDelete').onclick=()=>{
  $('confirmDelete').textContent=`永久删除 ${pendingDeleteIds.length} 张`;
  show('deleteModal');
 };
-$('confirmDelete').onclick=()=>{
- let ids=new Set(pendingDeleteIds.length?pendingDeleteIds:(deleteId!==null?[deleteId]:[]));
- let before=cards.length;
- cards.splice(0,cards.length,...cards.filter(c=>!ids.has(c.id)));
- let removed=before-cards.length;
- ids.forEach(id=>selectedIds.delete(id));
- if(ids.has(selected)){selected=cards[0]?.id??null;hide('cardDetailModal')}
- pendingDeleteIds=[];deleteId=null;
- render();hide('deleteModal');
- toast(removed?`已永久删除 ${removed} 张卡片（演示）`:'没有删除卡片');
-};
+$('confirmDelete').onclick=null;
+$('confirmDelete').addEventListener('click',event=>{
+ event.preventDefault();event.stopPropagation();
+ const ids=new Set((pendingDeleteIds.length?pendingDeleteIds:(deleteId!==null?[deleteId]:[])).map(id=>String(id)));
+ if(!ids.size){hide('deleteModal');toast('未选择要删除的卡片');return}
+ let removed=0;
+ for(let i=cards.length-1;i>=0;i--){if(ids.has(String(cards[i].id))){cards.splice(i,1);removed++}}
+ ids.forEach(id=>selectedIds.delete(Number(id)));
+ if(ids.has(String(selected))){selected=cards[0]?.id??null;hide('cardDetailModal')}
+ pendingDeleteIds=[];deleteId=null;hide('deleteModal');render();
+ toast(removed?'已永久删除 '+removed+' 张卡片（演示）':'未找到对应卡片，未执行删除');
+},{capture:true});
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>hide(b.dataset.close));document.querySelectorAll('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)hide(m.id)}));
 $('openSource').onclick=()=>toast('正式版本将跳转至知新阅读器对应位置');
 let generationState='generating',generationTimer=null;
