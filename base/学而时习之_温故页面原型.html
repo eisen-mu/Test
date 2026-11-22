@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>学而时习之 · 温故页面原型</title>
+<style>
+  :root{
+    --bg:#f6f7f4; --panel:#ffffff; --panel-soft:#fbfcfa; --ink:#24332e; --muted:#7d8983;
+    --line:#e7ece8; --green:#2f6754; --green-dark:#214c3d; --green-pale:#eaf2ed;
+    --gold:#bb8b4a; --gold-pale:#f8f1e6; --red:#b96355; --red-pale:#fbefed;
+    --shadow:0 12px 32px rgba(34,63,50,.06); --radius:18px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:14px;line-height:1.55}
+  button,input,select{font:inherit}
+  button{cursor:pointer}
+  .app{min-height:100vh;display:grid;grid-template-columns:232px minmax(0,1fr)}
+  .sidebar{background:#fff;border-right:1px solid var(--line);padding:25px 16px 18px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+  .brand{display:flex;align-items:center;gap:11px;padding:0 12px 32px}
+  .brand-mark{width:38px;height:38px;border-radius:13px;background:var(--green-dark);display:grid;place-items:center;color:#fff;font-family:serif;font-size:21px;box-shadow:0 6px 14px rgba(33,76,61,.18)}
+  .brand-name{font-family:serif;font-size:17px;font-weight:700;letter-spacing:.04em}
+  .brand-sub{font-size:10px;color:#93a099;letter-spacing:.12em;margin-top:1px}
+  .nav-label{padding:0 13px 9px;font-size:10px;color:#a1aaa5;letter-spacing:.14em}
+  .nav{display:flex;flex-direction:column;gap:5px}
+  .nav-btn{border:0;background:transparent;width:100%;text-align:left;padding:11px 13px;border-radius:12px;color:#68766f;display:flex;align-items:center;gap:12px;transition:.18s}
+  .nav-btn:hover{background:#f6f8f6;color:var(--ink)}
+  .nav-btn.active{background:var(--green-pale);color:var(--green-dark);font-weight:650}
+  .nav-icon{width:19px;height:19px;display:grid;place-items:center;font-size:16px}
+  .nav-count{margin-left:auto;font-size:11px;color:#8b9790;background:#f0f3f0;padding:2px 7px;border-radius:20px}
+  .sidebar-spacer{flex:1}
+  .side-note{margin:12px 6px 18px;padding:14px;border-radius:14px;background:#f7f8f5;border:1px solid #eef1ec;color:#68766f;font-size:11px;line-height:1.7}
+  .side-note strong{display:block;font-size:12px;color:#3d5549;margin-bottom:4px}
+  .side-bottom{border-top:1px solid var(--line);padding:15px 8px 0;display:flex;align-items:center;gap:10px;color:#839088;font-size:12px}
+  .local-dot{width:7px;height:7px;background:#71a486;border-radius:50%;box-shadow:0 0 0 4px #edf5ef}
+  .main{min-width:0}
+  .topbar{height:68px;padding:0 42px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.76);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+  .breadcrumb{font-size:12px;color:#87928c}.breadcrumb b{color:#3d5549;font-weight:650}
+  .top-actions{display:flex;align-items:center;gap:14px;color:#78857e;font-size:12px}
+  .top-tag{border:1px solid var(--line);border-radius:20px;padding:6px 11px;background:#fff;display:flex;align-items:center;gap:7px}
+  .avatar{width:30px;height:30px;border-radius:50%;background:#e9eee8;color:#496353;display:grid;place-items:center;font-weight:700;font-size:12px}
+  .content{max-width:1240px;margin:0 auto;padding:36px 42px 58px}
+  .page-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;gap:16px}
+  .eyebrow{font-size:10px;color:#9aa49e;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px}
+  h1{font-family:Georgia,"Songti SC","SimSun",serif;font-size:31px;line-height:1.2;font-weight:600;letter-spacing:.04em;margin:0;color:#263a31}
+  .page-desc{margin:9px 0 0;color:#7f8b84;font-size:13px}
+  .date-chip{font-size:12px;color:#77847d;border:1px solid var(--line);background:#fff;border-radius:22px;padding:8px 13px;white-space:nowrap}
+  .hero{background:linear-gradient(115deg,#234f40 0%,#326b55 65%,#477b63 100%);border-radius:22px;padding:25px 29px;color:#f5f8f4;position:relative;overflow:hidden;box-shadow:0 14px 32px rgba(35,79,64,.13);margin-bottom:22px}
+  .hero:after{content:"";position:absolute;width:300px;height:300px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:5%;top:-190px;box-shadow:0 0 0 34px rgba(255,255,255,.025),0 0 0 70px rgba(255,255,255,.02)}
+  .hero-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .hero-kicker{font-size:10px;letter-spacing:.18em;color:#c5d8cb;margin-bottom:7px}
+  .hero-title{font-family:Georgia,"Songti SC",serif;font-size:23px;letter-spacing:.04em;margin:0 0 7px;font-weight:500}
+  .hero-text{font-size:12px;color:#d1e0d5;margin:0}
+  .hero-stat{display:flex;gap:25px;margin-top:19px}
+  .hero-stat-item{border-left:1px solid rgba(255,255,255,.23);padding-left:13px}
+  .hero-stat-item:first-child{border:0;padding-left:0}
+  .hero-stat-num{font-family:Georgia,serif;font-size:22px;line-height:1.2}
+  .hero-stat-label{font-size:10px;color:#c5d8cb;margin-top:3px}
+  .hero-symbol{width:92px;height:92px;border:1px solid rgba(255,255,255,.23);border-radius:50%;display:grid;place-items:center;color:#dce9de;font-family:serif;font-size:39px;margin-right:20px;flex:none}
+  .layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(270px,.84fr);gap:22px;align-items:start}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .setup-panel{padding:24px 25px 22px}
+  .panel-title-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:19px}
+  .panel-title{font-size:15px;font-weight:700;color:#30443a;letter-spacing:.02em}
+  .panel-caption{font-size:11px;color:#9aa49e}
+  .mode-tabs{display:flex;gap:5px;padding:4px;background:#f3f6f3;border-radius:11px;width:max-content;margin-bottom:22px}
+  .mode-tab{border:0;border-radius:8px;background:transparent;color:#7d8982;font-size:12px;padding:8px 17px}
+  .mode-tab.active{background:#fff;color:var(--green-dark);box-shadow:0 2px 7px rgba(34,63,50,.08);font-weight:650}
+  .field-label{display:block;font-size:12px;font-weight:650;color:#52645a;margin-bottom:10px}
+  .category-row{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:19px}
+  .category{border:1px solid #e5ebe6;background:#fff;color:#718078;border-radius:10px;padding:9px 17px;font-size:12px;min-width:82px;transition:.18s}
+  .category:hover{border-color:#b8cbbd}
+  .category.selected{border-color:#83a68f;background:#eff5f0;color:#315d48;font-weight:650;box-shadow:inset 0 0 0 1px rgba(75,125,91,.07)}
+  .custom-block{display:none;margin:0 0 19px;padding:15px;background:#fafcf9;border:1px solid #edf1ec;border-radius:13px}
+  .custom-block.show{display:block}
+  .range-switch{display:flex;gap:16px;margin-bottom:13px}
+  .radio-line{display:flex;align-items:center;gap:7px;color:#69776f;font-size:12px;cursor:pointer}
+  input[type=radio],input[type=checkbox]{accent-color:var(--green);width:14px;height:14px}
+  .select-wrap{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+  select{border:1px solid #e1e8e2;background:#fff;border-radius:9px;padding:9px 11px;color:#52645a;min-width:180px;outline:none}
+  .material-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+  .material-option{display:flex;align-items:center;gap:8px;padding:8px 9px;border:1px solid #e9eee9;border-radius:9px;background:white;color:#617068;font-size:11px}
+  .rule-line{height:1px;background:#edf0ed;margin:21px 0 18px}
+  .mix-row{display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .mix-copy strong{display:block;font-size:12px;color:#40564a;margin-bottom:3px}
+  .mix-copy span{font-size:11px;color:#929d96}
+  .toggle{position:relative;width:42px;height:24px;border-radius:15px;background:#cbd4cd;border:0;padding:0;transition:.2s;flex:none}
+  .toggle:after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:white;left:3px;top:3px;box-shadow:0 1px 3px rgba(0,0,0,.14);transition:.2s}
+  .toggle.on{background:#4f8868}
+  .toggle.on:after{left:21px}
+  .weight-note{display:flex;align-items:center;gap:8px;font-size:10px;color:#829087;margin-top:14px;padding:9px 11px;background:#f7faf7;border-radius:9px}
+  .weight-dot{width:6px;height:6px;background:#71957c;border-radius:50%;flex:none}
+  .primary-btn{border:0;background:var(--green-dark);color:#fff;border-radius:11px;padding:12px 18px;font-size:13px;font-weight:650;letter-spacing:.02em;box-shadow:0 6px 14px rgba(33,76,61,.13);transition:.18s}
+  .primary-btn:hover{background:#2d604c;transform:translateY(-1px)}
+  .start-row{display:flex;align-items:center;justify-content:space-between;margin-top:20px;gap:14px}
+  .start-hint{font-size:10px;color:#9aa49e}
+  .side-column{display:flex;flex-direction:column;gap:16px}
+  .summary-panel{padding:21px 22px}
+  .summary-head{font-size:13px;font-weight:700;color:#40564a;margin-bottom:17px}
+  .summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .summary-box{padding:13px;border-radius:12px;background:#f8faf8;border:1px solid #eef2ee}
+  .summary-num{font-family:Georgia,serif;font-size:24px;color:#345c48;line-height:1.1}
+  .summary-label{font-size:10px;color:#8a968e;margin-top:7px}
+  .mini-progress{height:5px;background:#e9eee9;border-radius:6px;margin-top:15px;overflow:hidden}
+  .mini-progress span{display:block;height:100%;width:62%;background:#78a187;border-radius:6px}
+  .progress-foot{display:flex;justify-content:space-between;font-size:10px;color:#97a198;margin-top:7px}
+  .tip-panel{padding:18px 20px;background:#fbf8f1;border:1px solid #f0e9db;border-radius:var(--radius)}
+  .tip-title{font-size:12px;color:#876b42;font-weight:700;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+  .tip-text{font-size:11px;line-height:1.75;color:#8e8069;margin:0}
+  .secondary-link{border:0;background:transparent;color:#6f927b;font-size:11px;padding:8px 0 0}
+  .review-view{display:none}
+  .review-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .back-btn{border:0;background:transparent;padding:5px 0;color:#839087;font-size:12px}
+  .session-meta{text-align:right;color:#8d9991;font-size:11px}
+  .session-meta strong{color:#52695b;font-size:12px}
+  .review-progress{height:5px;background:#e8eee9;border-radius:6px;overflow:hidden;margin-bottom:19px}
+  .review-progress span{display:block;height:100%;width:8%;background:#6b9979;transition:width .3s}
+  .flashcard{padding:48px 40px 30px;min-height:390px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+  .card-meta{display:flex;align-items:center;gap:8px;margin-bottom:24px}
+  .type-pill{font-size:10px;padding:5px 10px;border-radius:20px;background:#eef4ef;color:#52755d}
+  .source-label{font-size:10px;color:#9aa49e}
+  .question-label{font-family:Georgia,"Songti SC",serif;font-size:11px;letter-spacing:.12em;color:#a0aaa3;margin-bottom:12px}
+  .question-text{font-family:Georgia,"Songti SC",serif;font-size:25px;line-height:1.55;color:#2e4539;max-width:620px;margin:0 auto 16px}
+  .card-subtext{font-size:12px;color:#9aa49e;margin-bottom:24px}
+  .answer-box{display:none;text-align:left;width:100%;max-width:650px;background:#f7faf7;border:1px solid #e8efe9;border-radius:13px;padding:17px 19px;margin:0 auto 18px;color:#586a5e;font-size:13px;line-height:1.85}
+  .answer-box.show{display:block}
+  .answer-title{font-size:10px;color:#71907a;font-weight:700;margin-bottom:5px;letter-spacing:.08em}
+  .reveal-btn{background:#fff;border:1px solid #cbdacf;color:#477157;border-radius:10px;padding:10px 18px;font-size:12px}
+  .assessment{display:none;width:100%;max-width:650px;margin-top:3px}
+  .assessment.show{display:block}
+  .assess-hint{font-size:11px;color:#929e96;margin-bottom:12px}
+  .assess-actions{display:flex;justify-content:center;gap:12px}
+  .assess-btn{min-width:132px;padding:11px 17px;border-radius:10px;border:1px solid;font-size:12px;font-weight:650}
+  .remember{background:#edf5ef;border-color:#d8e7dc;color:#426d50}
+  .not-remember{background:#fbf0ee;border-color:#f0dcd8;color:#a75f53}
+  .remark-box{display:none;width:100%;max-width:650px;text-align:left;background:#fbf8f1;border:1px solid #f1e9db;border-radius:12px;padding:13px 16px;margin-top:17px;color:#87785f;font-size:12px;line-height:1.7}
+  .remark-box.show{display:block}
+  .remark-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px}
+  .remark-title{font-size:10px;font-weight:700;color:#617d68}
+  .remark-edit-btn,.remark-cancel-btn{border:1px solid #d7e3d9;background:#fff;color:#4e7058;border-radius:8px;padding:6px 10px;font-size:11px}
+  .remark-editor{margin-top:10px}
+  .remark-editor[hidden]{display:none}
+  .remark-editor textarea{width:100%;min-height:72px;resize:vertical;border:1px solid #dce6dc;border-radius:9px;padding:9px 10px;background:#fff;color:#40564a;font:12px/1.7 inherit}
+  .remark-editor-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:7px}
+  .remark-save-btn{border:0;background:#315b46;color:#fff;border-radius:8px;padding:7px 12px;font-size:11px}
+  .next-row{display:none;justify-content:flex-end;position:absolute;right:22px;top:50%;transform:translateY(-50%);margin:0;z-index:5}
+  .next-row.show{display:flex}
+  .source-action{position:absolute;right:23px;bottom:18px;border:0;background:transparent;color:#8b9b90;font-size:11px}
+  .toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);padding:10px 16px;border-radius:10px;background:#263e33;color:white;font-size:12px;box-shadow:0 8px 24px rgba(0,0,0,.16);opacity:0;pointer-events:none;transition:.25s;z-index:20}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  .mobile-nav{display:none}
+  @media(max-width:1050px){.app{grid-template-columns:205px minmax(0,1fr)}.content{padding:30px 26px}.topbar{padding:0 26px}.layout{grid-template-columns:minmax(0,1fr) 260px}.hero-symbol{margin-right:0}}
+  @media(max-width:820px){.app{display:block}.sidebar{display:none}.topbar{height:58px;padding:0 18px}.content{padding:25px 18px 88px}.layout{grid-template-columns:1fr}.side-column{display:grid;grid-template-columns:1fr 1fr}.hero{padding:22px}.hero-symbol{width:72px;height:72px;font-size:30px}.mobile-nav{position:fixed;bottom:0;left:0;right:0;height:65px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;z-index:10;backdrop-filter:blur(12px)}.mobile-nav button{border:0;background:transparent;color:#859188;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:3px}.mobile-nav button.active{color:var(--green-dark);font-weight:700}.mobile-nav b{font-size:17px;font-weight:400}.date-chip{display:none}}
+  @media(max-width:560px){.next-row{right:10px}.next-row .primary-btn{padding:9px 11px;font-size:11px}.page-head{align-items:flex-start}.page-head h1{font-size:27px}.hero-inner{align-items:flex-start}.hero-symbol{display:none}.hero-title{font-size:20px}.hero-stat{gap:17px}.hero-stat-num{font-size:20px}.setup-panel{padding:19px 17px}.category{flex:1;min-width:0;padding:9px 8px}.material-list{grid-template-columns:1fr}.side-column{grid-template-columns:1fr}.flashcard{padding:54px 18px 48px;min-height:410px}.question-text{font-size:22px}.assess-actions{gap:8px}.assess-btn{min-width:0;flex:1}.start-row{align-items:flex-start;flex-direction:column}.start-row .primary-btn{width:100%}.summary-panel{padding:18px}.review-top{align-items:flex-start}.source-action{right:16px;bottom:12px}}
+  @media(max-width:820px){.top-actions{gap:7px}}
+  @media(max-width:480px){.top-actions .top-tag{display:none}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">习</div><div><div class="brand-name">学而时习之</div><div class="brand-sub">LEARN · REFLECT · REVISIT</div></div></div>
+    <div class="nav-label">学习空间</div>
+    <nav class="nav">
+      <button class="nav-btn active" data-nav="温故"><span class="nav-icon">↻</span>温故</button>
+      <button class="nav-btn" data-nav="知新"><span class="nav-icon">▤</span>知新</button>
+      <button class="nav-btn" data-nav="识错"><span class="nav-icon">◎</span>识错<span class="nav-count">18</span></button>
+      <button class="nav-btn" data-nav="打动我的一瞬"><span class="nav-icon">♡</span>打动我的一瞬</button>
+    </nav>
+    <div class="sidebar-spacer"></div>
+    <div class="side-note"><strong>温故而知新</strong>把值得记住的内容，慢慢变成自己的知识。</div>
+    <div class="side-bottom"><span class="local-dot"></span><span>本地运行 · 数据保存在此设备</span></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="breadcrumb">学习空间　/　<b id="crumb">温故</b></div>
+      <div class="top-actions"><div class="top-tag"><span class="local-dot"></span>本地模式</div><div class="avatar">习</div></div>
+    </header>
+
+    <div class="content">
+      <section class="page-head">
+        <div><div class="eyebrow">REVIEW YOUR KNOWLEDGE</div><h1>温故</h1><p class="page-desc">让学过的内容，重新回到眼前。</p></div>
+        <div class="date-chip">周六 · 2026年11月21日</div>
+      </section>
+
+      <section class="hero">
+        <div class="hero-inner">
+          <div>
+            <div class="hero-kicker">A LITTLE REVIEW, A DEEPER MEMORY</div>
+            <h2 class="hero-title">今天，留一点时间给旧知。</h2>
+            <p class="hero-text">不必急着记住所有内容，先从一张卡片开始。</p>
+            <div class="hero-stat">
+              <div class="hero-stat-item"><div class="hero-stat-num">128</div><div class="hero-stat-label">卡片总数</div></div>
+              <div class="hero-stat-item"><div class="hero-stat-num">18</div><div class="hero-stat-label">待巩固错题</div></div>
+              <div class="hero-stat-item"><div class="hero-stat-num">12</div><div class="hero-stat-label">今日已温习</div></div>
+            </div>
+          </div>
+          <div class="hero-symbol">温</div>
+        </div>
+      </section>
+
+      <section class="setup-view" id="setupView">
+        <div class="layout">
+          <div class="panel setup-panel">
+            <div class="panel-title-row"><div class="panel-title">开始一次温习</div><div class="panel-caption">按今天的状态，自由选择</div></div>
+            <div class="mode-tabs"><button class="mode-tab active" id="randomTab">随机温习</button><button class="mode-tab" id="customTab">自定范围</button></div>
+
+            <div id="randomSettings">
+              <label class="field-label">选择温习大类</label>
+              <div class="category-row" id="randomCategories">
+                <button class="category selected" data-cat="诗词">诗词</button>
+                <button class="category" data-cat="文章">文章</button>
+                <button class="category" data-cat="书籍">书籍</button>
+              </div>
+            </div>
+
+            <div class="custom-block" id="customSettings">
+              <label class="field-label">选择范围方式</label>
+              <div class="range-switch">
+                <label class="radio-line"><input type="radio" name="rangeMode" value="category" checked> 按大类</label>
+                <label class="radio-line"><input type="radio" name="rangeMode" value="material"> 指定材料</label>
+              </div>
+              <div id="categoryRange" class="select-wrap">
+                <span style="font-size:11px;color:#87948c">温习大类</span>
+                <select id="customCategory"><option>诗词</option><option>文章</option><option>书籍</option></select>
+              </div>
+              <div id="materialRange" style="display:none">
+                <div class="material-list">
+                  <label class="material-option"><input type="checkbox" checked> 《论语》选读</label>
+                  <label class="material-option"><input type="checkbox"> 唐诗三百首</label>
+                  <label class="material-option"><input type="checkbox"> 《认知觉醒》</label>
+                  <label class="material-option"><input type="checkbox"> 产品思维课程笔记</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="rule-line"></div>
+            <div class="mix-row">
+              <div class="mix-copy"><strong>日常温习中混入错题</strong><span>开启后，错题获得更高的随机抽取机会</span></div>
+              <button class="toggle on" id="wrongToggle" aria-label="混入错题开关" aria-pressed="true"></button>
+            </div>
+            <div class="start-row"><span class="start-hint" id="startHint">本次范围：诗词 · 错题混入已开启</span><button class="primary-btn" id="startBtn">开始温习　→</button></div>
+          </div>
+
+          <div class="side-column">
+            <div class="panel summary-panel">
+              <div class="summary-head">你的温习概览</div>
+              <div class="summary-grid">
+                <div class="summary-box"><div class="summary-num">12</div><div class="summary-label">今日温习卡片</div></div>
+                <div class="summary-box"><div class="summary-num">8</div><div class="summary-label">连续温习天数</div></div>
+              </div>
+              <div class="mini-progress"><span></span></div>
+              <div class="progress-foot"><span>本周温习进度</span><span>5 / 7 天</span></div>
+            </div>
+            <div class="tip-panel">
+              <div class="tip-title"><span>✦</span> 温习小提示</div>
+              <p class="tip-text">先在心里回忆，再查看内容。对自己的判断保持诚实，比一次答对更重要。</p>
+              <button class="secondary-link" id="tipMore">了解温习规则　↗</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="review-view" id="reviewView">
+        <div class="review-top"><button class="back-btn" id="exitReview">← 返回温故首页</button><div class="session-meta"><strong id="roundText">第 1 轮 · 0 / 12</strong><br><span>正常卡片进度</span></div></div>
+        <div class="review-progress"><span id="progressBar"></span></div>
+        <div class="panel flashcard" id="flashcardPanel">
+          <div class="card-meta"><span class="type-pill" id="cardType">逻辑卡</span><span class="source-label" id="cardSource">《认知觉醒》 · 第 2 章</span></div>
+          <div class="question-label" id="questionLabel">想一想 · 再揭晓</div>
+          <h2 class="question-text" id="questionText">什么是第一性原理？</h2>
+          <p class="card-subtext" id="cardSubtext">先试着用自己的话解释，不急着看答案。</p>
+          <div class="answer-box" id="answerBox"><div class="answer-title">参考答案</div><div id="answerText">第一性原理是将复杂问题拆解到最基本、不可再分的事实或假设，再从这些基础重新推导解决方案，而不是直接沿用已有经验或类比。</div></div>
+          <button class="reveal-btn" id="revealBtn">显示答案</button>
+          <div class="assessment" id="assessment">
+            <div class="assess-hint">回忆完成后，诚实地评价自己的掌握情况</div>
+            <div class="assess-actions"><button class="assess-btn remember" id="rememberBtn">✓　记住了</button><button class="assess-btn not-remember" id="notRememberBtn">↻　没记住</button></div>
+          </div>
+          <div class="remark-box" id="remarkBox"><div class="remark-head"><div class="remark-title">我的备注</div><button class="remark-edit-btn" id="editRemarkBtn" type="button">编辑备注</button></div><div id="remarkText">可以把问题拆解到最基本的事实，再从底层重新推导；不要被惯常做法限制。</div><div class="remark-editor" id="remarkEditor" hidden><textarea id="remarkInput" rows="3" placeholder="记录这张卡片带给你的补充理解…"></textarea><div class="remark-editor-actions"><button class="remark-cancel-btn" id="cancelRemarkBtn" type="button">取消</button><button class="remark-save-btn" id="saveRemarkBtn" type="button">保存备注</button></div></div></div>
+          <div class="next-row" id="nextRow"><button class="primary-btn" id="nextBtn">下一张卡片　→</button></div>
+          <button class="source-action" id="sourceBtn">↗ 查看原文</button>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<nav class="mobile-nav"><button class="active" data-nav="温故"><b>↻</b>温故</button><button data-nav="知新"><b>▤</b>知新</button><button data-nav="识错"><b>◎</b>识错</button><button data-nav="打动我的一瞬"><b>♡</b>收藏</button></nav>
+<div class="toast" id="toast"></div>
+
+
+
+
+
+<div id="feedbackOverlay" aria-label="反馈标记层" style="position:absolute;inset:0;min-height:100%;pointer-events:none;z-index:82"></div>
+
+<script>
+(() => {
+ const $ = id => document.getElementById(id);
+ let mode = 'random', wrongOn = true, selectedCategory = '诗词', current = 0, remembered = 0, assessed = false;
+ const cards = [
+  {type:'逻辑卡',source:'《认知觉醒》 · 第 2 章',label:'想一想 · 再揭晓',question:'什么是第一性原理？',sub:'先试着用自己的话解释，不急着看答案。',answer:'第一性原理是将复杂问题拆解到最基本、不可再分的事实或假设，再从这些基础重新推导解决方案，而不是直接沿用已有经验或类比。',remark:'可以把问题拆解到最基本的事实，再从底层重新推导；不要被惯常做法限制。'},
+  {type:'摘录卡',source:'《论语》选读 · 学而篇',label:'读一读 · 回忆含义',question:'学而时习之，不亦说乎？',sub:'回想这句话对“学习”和“温习”的理解。',answer:'学习之后在适当的时候温习，不也是一件令人愉快的事吗？这里强调学习与实践、复习之间的持续联系。',remark:'“习”不仅是重复，也可以理解为在实践中反复体会。'},
+  {type:'诗词卡',source:'唐诗三百首 · 王维',label:'读一读 · 回忆意境',question:'空山不见人，但闻人语响。',sub:'回忆整首诗及其所营造的意境。',answer:'鹿柴\n王维\n空山不见人，但闻人语响。\n返景入深林，复照青苔上。',remark:'诗中以声音反衬山林的幽静，画面感很强。'}
+ ];
+ function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>el.classList.remove('show'),2300)}
+ function updateHint(){let scope=mode==='random'?selectedCategory:(document.querySelector('input[name="rangeMode"]:checked').value==='category'?$ ('customCategory').value:'指定材料');$('startHint').textContent=`本次范围：${scope} · 错题混入${wrongOn?'已开启':'已关闭'}`}
+ function setMode(m){mode=m;$('randomTab').classList.toggle('active',m==='random');$('customTab').classList.toggle('active',m==='custom');$('randomSettings').style.display=m==='random'?'block':'none';$('customSettings').classList.toggle('show',m==='custom');updateHint()}
+ $('randomTab').addEventListener('click',()=>setMode('random'));
+ $('customTab').addEventListener('click',()=>setMode('custom'));
+ document.querySelectorAll('#randomCategories .category').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('#randomCategories .category').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');selectedCategory=btn.dataset.cat;updateHint()}));
+ document.querySelectorAll('input[name="rangeMode"]').forEach(r=>r.addEventListener('change',()=>{const byCat=r.value==='category'&&r.checked;$('categoryRange').style.display=byCat?'flex':'none';$('materialRange').style.display=(!byCat&&r.checked)?'block':'none';updateHint()}));
+ $('customCategory').addEventListener('change',updateHint);
+ $('wrongToggle').addEventListener('click',()=>{wrongOn=!wrongOn;$('wrongToggle').classList.toggle('on',wrongOn);$('wrongToggle').setAttribute('aria-pressed',String(wrongOn));updateHint()});
+ function renderCard(){const c=cards[current%cards.length];$('cardType').textContent=c.type;$('cardSource').textContent=c.source;$('questionLabel').textContent=c.label;$('questionText').textContent=c.question;$('cardSubtext').textContent=c.sub;$('answerText').textContent=c.answer;$('remarkText').textContent=c.remark||'还没有添加备注。';$('editRemarkBtn').textContent=c.remark?'编辑备注':'添加备注';$('remarkEditor').hidden=true;$('remarkInput').value=c.remark||'';$('answerBox').classList.remove('show');$('assessment').classList.remove('show');$('remarkBox').classList.remove('show');$('nextRow').classList.remove('show');$('revealBtn').style.display='inline-block';$('revealBtn').textContent=c.type==='逻辑卡'?'显示答案':'查看参考内容';assessed=false;$('progressBar').style.width=`${Math.min(100,Math.max(8,(remembered/12)*100))}%`;$('roundText').textContent=`第 1 轮 · ${remembered} / 12`}
+ const beginReview=()=>{current=0;remembered=0;$('setupView').style.display='none';$('reviewView').style.display='block';renderCard();window.scrollTo({top:0,behavior:'smooth'})};$('startBtn').addEventListener('click',beginReview);
+ $('revealBtn').addEventListener('click',()=>{$('answerBox').classList.add('show');$('assessment').classList.add('show');$('revealBtn').style.display='none';$('cardSubtext').textContent='看完参考内容后，选择自己的掌握情况。'});
+ function assess(result){if(assessed)return;assessed=true;if(result==='remember'){remembered++} $('remarkBox').classList.add('show');$('nextRow').classList.add('show');$('assessment').classList.remove('show');toast(result==='remember'?'已记录：记住了':'已记录：没记住，已加入错题本')}
+ $('rememberBtn').addEventListener('click',()=>assess('remember'));
+ $('notRememberBtn').addEventListener('click',()=>assess('wrong'));
+ $('editRemarkBtn').addEventListener('click',()=>{$('remarkEditor').hidden=false;$('remarkInput').value=cards[current%cards.length].remark||'';$('remarkInput').focus()});
+ $('cancelRemarkBtn').addEventListener('click',()=>{$('remarkEditor').hidden=true});
+ $('saveRemarkBtn').addEventListener('click',()=>{const c=cards[current%cards.length];c.remark=$('remarkInput').value.trim();$('remarkText').textContent=c.remark||'还没有添加备注。';$('editRemarkBtn').textContent=c.remark?'编辑备注':'添加备注';$('remarkEditor').hidden=true;toast('备注已保存')});
+ $('nextBtn').addEventListener('click',()=>{current++;renderCard()});
+ $('exitReview').addEventListener('click',()=>{$('reviewView').style.display='none';$('setupView').style.display='block';window.scrollTo({top:0,behavior:'smooth'})});
+ $('sourceBtn').addEventListener('click',()=>toast('原文定位为原型演示，正式版将跳转到对应材料位置。'));
+ $('tipMore').addEventListener('click',()=>toast('正常卡片权重 1，错题权重 3；错题可独立复习。'));
+ document.querySelectorAll('[data-nav]').forEach(btn=>btn.addEventListener('click',()=>{const name=btn.dataset.nav;if(name!=='温故'){toast(`${name}页面将在后续原型中设计。`)}else{$('crumb').textContent='温故';$('setupView').style.display='block';$('reviewView').style.display='none'}document.querySelectorAll('.nav-btn,.mobile-nav button').forEach(b=>b.classList.toggle('active',b.dataset.nav===name))}));
+ updateHint();
+})();
+</script>
+
+</script>
+
+</body>
+</html>
