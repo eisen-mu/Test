@@ -154,8 +154,15 @@
   .not-remember{background:#fbf0ee;border-color:#f0dcd8;color:#a75f53}
   .remark-box{display:none;width:100%;max-width:650px;text-align:left;background:#fbf8f1;border:1px solid #f1e9db;border-radius:12px;padding:13px 16px;margin-top:17px;color:#87785f;font-size:12px;line-height:1.7}
   .remark-box.show{display:block}
-  .remark-title{font-size:10px;font-weight:700;margin-bottom:4px;color:#617d68}
-  .next-row{display:none;justify-content:center;margin-top:15px}
+  .remark-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px}
+  .remark-title{font-size:10px;font-weight:700;color:#617d68}
+  .remark-edit-btn,.remark-cancel-btn{border:1px solid #d7e3d9;background:#fff;color:#4e7058;border-radius:8px;padding:6px 10px;font-size:11px}
+  .remark-editor{margin-top:10px}
+  .remark-editor[hidden]{display:none}
+  .remark-editor textarea{width:100%;min-height:72px;resize:vertical;border:1px solid #dce6dc;border-radius:9px;padding:9px 10px;background:#fff;color:#40564a;font:12px/1.7 inherit}
+  .remark-editor-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:7px}
+  .remark-save-btn{border:0;background:#315b46;color:#fff;border-radius:8px;padding:7px 12px;font-size:11px}
+  .next-row{display:none;justify-content:flex-end;margin-top:15px}
   .next-row.show{display:flex}
   .source-action{position:absolute;right:23px;bottom:18px;border:0;background:transparent;color:#8b9b90;font-size:11px}
   .toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);padding:10px 16px;border-radius:10px;background:#263e33;color:white;font-size:12px;box-shadow:0 8px 24px rgba(0,0,0,.16);opacity:0;pointer-events:none;transition:.25s;z-index:20}
@@ -346,7 +353,7 @@
             <div class="assess-hint">回忆完成后，诚实地评价自己的掌握情况</div>
             <div class="assess-actions"><button class="assess-btn remember" id="rememberBtn">✓　记住了</button><button class="assess-btn not-remember" id="notRememberBtn">↻　没记住</button></div>
           </div>
-          <div class="remark-box" id="remarkBox"><div class="remark-title">我的备注</div><div id="remarkText">可以把问题拆解到最基本的事实，再从底层重新推导；不要被惯常做法限制。</div></div>
+          <div class="remark-box" id="remarkBox"><div class="remark-head"><div class="remark-title">我的备注</div><button class="remark-edit-btn" id="editRemarkBtn" type="button">编辑备注</button></div><div id="remarkText">可以把问题拆解到最基本的事实，再从底层重新推导；不要被惯常做法限制。</div><div class="remark-editor" id="remarkEditor" hidden><textarea id="remarkInput" rows="3" placeholder="记录这张卡片带给你的补充理解…"></textarea><div class="remark-editor-actions"><button class="remark-cancel-btn" id="cancelRemarkBtn" type="button">取消</button><button class="remark-save-btn" id="saveRemarkBtn" type="button">保存备注</button></div></div></div>
           <div class="next-row" id="nextRow"><button class="primary-btn" id="nextBtn">下一张卡片　→</button></div>
           <button class="source-action" id="sourceBtn">↗ 查看原文</button>
         </div>
@@ -423,13 +430,16 @@
  document.querySelectorAll('input[name="rangeMode"]').forEach(r=>r.addEventListener('change',()=>{const byCat=r.value==='category'&&r.checked;$('categoryRange').style.display=byCat?'flex':'none';$('materialRange').style.display=(!byCat&&r.checked)?'block':'none';updateHint()}));
  $('customCategory').addEventListener('change',updateHint);
  $('wrongToggle').addEventListener('click',()=>{wrongOn=!wrongOn;$('wrongToggle').classList.toggle('on',wrongOn);$('wrongToggle').setAttribute('aria-pressed',String(wrongOn));updateHint()});
- function renderCard(){changeCardBackground();const c=cards[current%cards.length];$('cardType').textContent=c.type;$('cardSource').textContent=c.source;$('questionLabel').textContent=c.label;$('questionText').textContent=c.question;$('cardSubtext').textContent=c.sub;$('answerText').textContent=c.answer;$('remarkText').textContent=c.remark;$('answerBox').classList.remove('show');$('assessment').classList.remove('show');$('remarkBox').classList.remove('show');$('nextRow').classList.remove('show');$('revealBtn').style.display='inline-block';$('revealBtn').textContent=c.type==='逻辑卡'?'显示答案':'查看参考内容';assessed=false;$('progressBar').style.width=`${Math.min(100,Math.max(8,(remembered/12)*100))}%`;$('roundText').textContent=`第 1 轮 · ${remembered} / 12`}
+ function renderCard(){changeCardBackground();const c=cards[current%cards.length];$('cardType').textContent=c.type;$('cardSource').textContent=c.source;$('questionLabel').textContent=c.label;$('questionText').textContent=c.question;$('cardSubtext').textContent=c.sub;$('answerText').textContent=c.answer;$('remarkText').textContent=c.remark||'还没有添加备注。';$('editRemarkBtn').textContent=c.remark?'编辑备注':'添加备注';$('remarkEditor').hidden=true;$('remarkInput').value=c.remark||'';$('answerBox').classList.remove('show');$('assessment').classList.remove('show');$('remarkBox').classList.remove('show');$('nextRow').classList.remove('show');$('revealBtn').style.display='inline-block';$('revealBtn').textContent=c.type==='逻辑卡'?'显示答案':'查看参考内容';assessed=false;$('progressBar').style.width=`${Math.min(100,Math.max(8,(remembered/12)*100))}%`;$('roundText').textContent=`第 1 轮 · ${remembered} / 12`}
  const beginReview=()=>{current=0;remembered=0;$('setupView').style.display='none';$('reviewView').style.display='block';renderCard();window.scrollTo({top:0,behavior:'smooth'})};$('startBtn').addEventListener('click',beginReview);
  $('changeThemeBtn').addEventListener('click',()=>{changeCardBackground();toast('已为这张卡片换上一幅水墨画。')});
  $('revealBtn').addEventListener('click',()=>{$('answerBox').classList.add('show');$('assessment').classList.add('show');$('revealBtn').style.display='none';$('cardSubtext').textContent='看完参考内容后，选择自己的掌握情况。'});
  function assess(result){if(assessed)return;assessed=true;if(result==='remember'){remembered++} $('remarkBox').classList.add('show');$('nextRow').classList.add('show');$('assessment').classList.remove('show');toast(result==='remember'?'已记录：记住了':'已记录：没记住，已加入错题本')}
  $('rememberBtn').addEventListener('click',()=>assess('remember'));
  $('notRememberBtn').addEventListener('click',()=>assess('wrong'));
+ $('editRemarkBtn').addEventListener('click',()=>{$('remarkEditor').hidden=false;$('remarkInput').value=cards[current%cards.length].remark||'';$('remarkInput').focus()});
+ $('cancelRemarkBtn').addEventListener('click',()=>{$('remarkEditor').hidden=true});
+ $('saveRemarkBtn').addEventListener('click',()=>{const c=cards[current%cards.length];c.remark=$('remarkInput').value.trim();$('remarkText').textContent=c.remark||'还没有添加备注。';$('editRemarkBtn').textContent=c.remark?'编辑备注':'添加备注';$('remarkEditor').hidden=true;toast('备注已保存')});
  $('nextBtn').addEventListener('click',()=>{current++;renderCard()});
  $('exitReview').addEventListener('click',()=>{$('reviewView').style.display='none';$('setupView').style.display='block';window.scrollTo({top:0,behavior:'smooth'})});
  $('sourceBtn').addEventListener('click',()=>toast('原文定位为原型演示，正式版将跳转到对应材料位置。'));
