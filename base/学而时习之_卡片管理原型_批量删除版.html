@@ -92,7 +92,7 @@ function renderCardDetail(){
  if(!detailEditing){
   $('toggleFavorite').onclick=()=>{c.favorite=!c.favorite;renderCardDetail();toast(c.favorite?'已加入打动我的一瞬（演示）':'已取消收藏（演示）')};
   $('viewSource').onclick=()=>openSource(c);
-  $('deleteCard').onclick=()=>{deleteId=c.id;pendingDeleteIds=[c.id];$('deleteModal').querySelector('h2').textContent='确认永久删除卡片？';$('deleteModal').querySelector('p').textContent='卡片删除后无法恢复。若该卡片已被收藏，收藏中的独立内容快照仍会保留。';$('confirmDelete').textContent='永久删除';show('deleteModal')};
+  $('deleteCard').onclick=e=>{e.preventDefault();e.stopPropagation();deleteId=c.id;pendingDeleteIds=[c.id];$('deleteModal').querySelector('h2').textContent='确认永久删除卡片？';$('deleteModal').querySelector('p').textContent='卡片删除后无法恢复。若该卡片已被收藏，收藏中的独立内容快照仍会保留。';$('confirmDelete').textContent='永久删除';hide('cardDetailModal');show('deleteModal')};
  }
 }
 $('closeCardDetail').onclick=()=>hide('cardDetailModal');
