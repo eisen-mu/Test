@@ -44,7 +44,7 @@ const cards=[
 {id:11,type:'article',materialType:'article',title:'知识的结构化表达',content:'结构化表达强调先结论后论据，并通过清晰的层级关系组织信息。',note:'可应用于会议汇报。',source:'《金字塔原理》',loc:'序言',author:'芭芭拉·明托',date:'2026-11-12',status:'manual',available:true},
 {id:12,type:'excerpt',materialType:'book',title:'复盘的关键问题',content:'目标是什么？实际结果如何？差异在哪里？下一次采取什么行动？',note:'',source:'项目管理笔记',loc:'复盘方法',author:'个人笔记',date:'2026-11-11',status:'manual',available:true}
 ];
-let selected=1,deleteId=null,pendingDeleteIds=[],selectedIds=new Set(),reviewIndex=2,reviewApproved=2,reviewPaused=false,currentPage=1,pageSize=4;
+let selected=null,deleteId=null,pendingDeleteIds=[],selectedIds=new Set(),reviewIndex=2,reviewApproved=2,reviewPaused=false,currentPage=1,pageSize=4;
 cards.forEach(c=>{if(typeof c.favorite!=='boolean')c.favorite=false});
 const $=id=>document.getElementById(id), typeName={poem:'诗词卡',article:'文章卡',excerpt:'摘录卡'};
 function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1900)}
