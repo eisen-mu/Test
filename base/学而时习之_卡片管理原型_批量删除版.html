@@ -110,7 +110,7 @@ $('bulkDelete').onclick=()=>{
 $('confirmDelete').onclick=()=>{
  let ids=new Set(pendingDeleteIds.length?pendingDeleteIds:(deleteId!==null?[deleteId]:[]));
  let before=cards.length;
- cards=cards.filter(c=>!ids.has(c.id));
+ cards.splice(0,cards.length,...cards.filter(c=>!ids.has(c.id)));
  let removed=before-cards.length;
  ids.forEach(id=>selectedIds.delete(id));
  if(ids.has(selected)){selected=cards[0]?.id??null;hide('cardDetailModal')}
