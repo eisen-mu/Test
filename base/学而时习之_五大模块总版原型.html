@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>学而时习之 · 五大模块总版原型</title>
+<style>
+:root{--ink:#263a31;--green:#214b3b;--pale:#eaf2ec;--line:#e5ebe6;--muted:#839088}
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7f4;color:var(--ink);font:14px/1.5 Inter,"PingFang SC","Microsoft YaHei",sans-serif}
+.shell{min-height:100vh;display:grid;grid-template-columns:220px minmax(0,1fr)}
+.side{background:white;border-right:1px solid var(--line);padding:24px 15px;display:flex;flex-direction:column}
+.brand{font:700 18px Georgia,serif;padding:5px 10px 28px}
+.brand small{display:block;color:#9aa49d;font:10px sans-serif;letter-spacing:.14em;margin-top:5px}
+.label{font-size:10px;color:#a0aaa3;letter-spacing:.15em;padding:0 12px 8px}
+.nav{display:grid;gap:5px}
+.nav button{border:0;background:transparent;text-align:left;padding:12px;border-radius:10px;color:#617167;cursor:pointer}
+.nav button.active{background:var(--pale);color:var(--green);font-weight:700}
+.main{position:relative;min-width:0;height:100vh;overflow:hidden;background:#f5f7f4}
+.frame{position:absolute;inset:0;display:block;visibility:hidden;opacity:0;pointer-events:none;border:0;width:100%;height:100%;min-height:100%;background:#f5f7f4}
+.frame.active{visibility:visible;opacity:1;pointer-events:auto;z-index:1}
+@media(max-width:700px){
+.shell{grid-template-columns:1fr}
+.side{padding:10px 12px;border-right:0;border-bottom:1px solid var(--line)}
+.brand{padding:5px 8px 9px}
+.nav{display:flex;overflow:auto}
+.nav button{white-space:nowrap;padding:9px 11px}
+.main{height:calc(100vh - 75px);min-height:calc(100vh - 75px)}
+}
+</style></head><body>
+<div class="shell">
+<aside class="side">
+<div class="brand">学而时习之<small>LEARN · REFLECT · REVIEW</small></div>
+<nav class="nav" id="nav">
+<button class="active" data-file="学而时习之_知新材料目录与阅读器原型.html">▤　知新</button>
+<button data-file="学而时习之_卡片管理原型_批量删除版.html">▤　卡片管理</button>
+<button data-file="学而时习之_温故页面原型.html">◷　温故</button>
+<button data-file="学而时习之_识错页面原型_详情只读连对次数版.html">◎　识错</button>
+<button data-file="学而时习之_打动我的一瞬页面原型_修改版2.html">♡　打动我的一瞬</button>
+</nav>
+</aside>
+<main class="main" id="frameHost" aria-label="模块内容"></main>
+</div>
+<script>
+const nav=document.getElementById('nav');
+const host=document.getElementById('frameHost');
+const frames=new Map();
+const buttons=[...nav.querySelectorAll('button[data-file]')];
+const defaultFile=buttons[0].dataset.file;
+let activeFile=null;
+
+// 总版统一模块导航；模块 iframe 首次访问时才创建，之后保留在页面中。
+// 这样切换模块时不再反复销毁/重载页面，页面滚动位置和临时操作状态也会保留。
+function normalizeEmbeddedPage(frame){
+  try{
+    const doc=frame.contentDocument;
+    if(!doc)return;
+    let style=doc.getElementById('embedded-shell-override');
+    if(!style){
+      style=doc.createElement('style');
+      style.id='embedded-shell-override';
+      style.textContent=`
+      html,body{margin:0!important;min-width:0!important;width:100%!important}
+      .app{display:block!important;grid-template-columns:minmax(0,1fr)!important;min-height:100vh!important;width:100%!important}
+      .sidebar,.mobile-nav{display:none!important}
+      .main{display:block!important;min-width:0!important;width:100%!important;min-height:100vh!important}
+      .topbar{height:62px!important;min-height:62px!important;padding:0 34px!important;box-sizing:border-box!important;position:relative!important;top:auto!important}
+      .content{width:100%!important;max-width:1320px!important;margin:0 auto!important;padding:32px 36px 56px!important;box-sizing:border-box!important}
+      .top-actions{display:none!important}
+      .top-tag,.local-dot{display:none!important}
+      @media(max-width:760px){
+        .topbar{height:56px!important;min-height:56px!important;padding:0 18px!important}
+        .content{padding:24px 18px 42px!important}
+      }`;
+      const pageTitle=doc.title||'';
+      if(/卡片管理|识错|打动我的一瞬/.test(pageTitle)){
+        style.textContent+=`
+          .toolbar{background:#eaf2ec!important;border:1px solid #dce8de!important;box-shadow:none!important;border-radius:16px!important;padding:18px 20px!important}
+          .toolbar-label{color:#214b3b!important;font-weight:600!important;letter-spacing:.02em!important}
+          .toolbar-field>span{color:#536b5a!important}
+          .toolbar-field input,.toolbar-field select,.toolbar input.search{background:#fff!important;border:1px solid #dce6dc!important;color:#344b3d!important;border-radius:9px!important}
+          .toolbar-field input::placeholder,.toolbar input::placeholder{color:#8b9a90!important}
+          .toolbar-field input:focus,.toolbar-field select:focus{outline:2px solid #b8cfbd!important;outline-offset:1px!important}
+          .filter-hint{color:#536b5a!important}
+        `;
+      }
+      if(/温故/.test(pageTitle)){
+        style.textContent+=`
+          .source-action{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;margin-top:16px!important;padding:10px 17px!important;border:1px solid #315b46!important;border-radius:10px!important;background:#315b46!important;color:#fff!important;font-size:13px!important;font-weight:600!important;box-shadow:0 4px 12px rgba(36,75,56,.12)!important;cursor:pointer!important;transition:background .15s,border-color .15s,transform .15s!important}
+          .source-action:hover{background:#244a38!important;border-color:#244a38!important;transform:translateY(-1px)!important}
+          .source-action:focus-visible{outline:3px solid #a7c0ad!important;outline-offset:3px!important}
+        `;
+      }
+      doc.head.appendChild(style);
+    }
+  }catch(err){console.warn('无法调整嵌入页面布局：',err);}
+}
+
+function getFrame(file){
+  if(frames.has(file))return frames.get(file);
+  const frame=document.createElement('iframe');
+  frame.className='frame';
+  frame.title=buttons.find(b=>b.dataset.file===file)?.textContent.trim()||'模块原型';
+  frame.dataset.file=file;
+  frame.src=file;
+  frame.addEventListener('load',()=>normalizeEmbeddedPage(frame));
+  host.appendChild(frame);
+  frames.set(file,frame);
+  return frame;
+}
+
+function renderModule(file){
+  if(!buttons.some(b=>b.dataset.file===file))file=defaultFile;
+  getFrame(file);
+  frames.forEach((item,key)=>{
+    const active=key===file;
+    item.classList.toggle('active',active);
+    item.setAttribute('aria-hidden',String(!active));
+    item.tabIndex=active?0:-1;
+  });
+  buttons.forEach(button=>{
+    const active=button.dataset.file===file;
+    button.classList.toggle('active',active);
+    if(active)button.setAttribute('aria-current','page');
+    else button.removeAttribute('aria-current');
+  });
+  activeFile=file;
+  return file;
+}
+
+function fileFromLocation(){
+  const match=location.hash.match(/^#module=(.*)$/);
+  if(!match)return defaultFile;
+  try{
+    const file=decodeURIComponent(match[1]);
+    return buttons.some(b=>b.dataset.file===file)?file:defaultFile;
+  }catch(_){return defaultFile;}
+}
+
+// 地址栏是模块状态的唯一来源；历史前进、后退及 hash 变化均走同一同步入口。
+function syncModuleFromLocation(){
+  const file=fileFromLocation();
+  renderModule(file);
+  const expectedHash='#module='+encodeURIComponent(file);
+  if(location.hash!==expectedHash){
+    history.replaceState({module:file},'',expectedHash);
+  }
+}
+
+function navigateTo(file,writeHistory){
+  if(!buttons.some(b=>b.dataset.file===file))return;
+  const nextHash='#module='+encodeURIComponent(file);
+  if(file===activeFile){
+    if(location.hash!==nextHash)history.replaceState({module:file},'',nextHash);
+    return;
+  }
+  if(writeHistory&&location.hash!==nextHash){
+    history.pushState({module:file},'',nextHash);
+  }
+  renderModule(file);
+}
+
+nav.addEventListener('click',event=>{
+  const button=event.target.closest('button[data-file]');
+  if(!button)return;
+  event.preventDefault();
+  navigateTo(button.dataset.file,true);
+});
+
+// 浏览器前进/后退，以及地址栏 hash 被其他操作修改时，统一同步内容和导航高亮。
+window.addEventListener('popstate',syncModuleFromLocation);
+window.addEventListener('hashchange',syncModuleFromLocation);
+
+// 首次进入时用 replaceState 建立当前模块地址，不额外增加一条历史记录。
+const initialFile=fileFromLocation();
+renderModule(initialFile);
+const initialHash='#module='+encodeURIComponent(initialFile);
+if(location.hash!==initialHash)history.replaceState({module:initialFile},'',initialHash);
+</script></body></html>
