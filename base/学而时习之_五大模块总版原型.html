@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>学而时习之 · 五大模块总版原型</title>
 <style>
-:root{--ink:#263a31;--green:#214b3b;--pale:#eaf2ec;--line:#e5ebe6;--muted:#839088}*{box-sizing:border-box}body{margin:0;background:#f5f7f4;color:var(--ink);font:14px/1.5 Inter,"PingFang SC","Microsoft YaHei",sans-serif}.shell{min-height:100vh;display:grid;grid-template-columns:220px 1fr}.side{background:white;border-right:1px solid var(--line);padding:24px 15px;display:flex;flex-direction:column}.brand{font:700 18px Georgia,serif;padding:5px 10px 28px}.brand small{display:block;color:#9aa49d;font:10px sans-serif;letter-spacing:.14em;margin-top:5px}.label{font-size:10px;color:#a0aaa3;letter-spacing:.15em;padding:0 12px 8px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;text-align:left;padding:12px;border-radius:10px;color:#617167;cursor:pointer}.nav button.active{background:var(--pale);color:var(--green);font-weight:700}.note{margin-top:auto;padding:13px;background:#f7f8f5;border:1px solid #eef1ec;border-radius:12px;color:#738078;font-size:11px;line-height:1.7}.main{min-width:0;display:flex;flex-direction:column}.top{height:62px;background:#ffffffdf;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 25px;color:#839088;font-size:12px}.top b{color:#3d5549}.frame{border:0;width:100%;height:calc(100vh - 62px);background:#f5f7f4}.mobile{display:none}@media(max-width:700px){.shell{grid-template-columns:1fr}.side{padding:10px;border-right:0;border-bottom:1px solid var(--line)}.brand{padding:6px 8px 10px}.label,.note{display:none}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:9px 11px}.frame{height:calc(100vh - 110px)}.top{height:48px;padding:0 14px}}
-</style></head><body><div class="shell"><aside class="side"><div class="brand">学而时习之<small>LEARN · REFLECT · REVIEW</small></div><div class="label">学习空间 · 五大模块</div><nav class="nav" id="nav">
+:root{--ink:#263a31;--green:#214b3b;--pale:#eaf2ec;--line:#e5ebe6;--muted:#839088}*{box-sizing:border-box}body{margin:0;background:#f5f7f4;color:var(--ink);font:14px/1.5 Inter,"PingFang SC","Microsoft YaHei",sans-serif}.shell{min-height:100vh;display:grid;grid-template-columns:220px minmax(0,1fr)}.side{background:white;border-right:1px solid var(--line);padding:24px 15px;display:flex;flex-direction:column}.brand{font:700 18px Georgia,serif;padding:5px 10px 28px}.brand small{display:block;color:#9aa49d;font:10px sans-serif;letter-spacing:.14em;margin-top:5px}.label{font-size:10px;color:#a0aaa3;letter-spacing:.15em;padding:0 12px 8px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;text-align:left;padding:12px;border-radius:10px;color:#617167;cursor:pointer}.nav button.active{background:var(--pale);color:var(--green);font-weight:700}.main{min-width:0;min-height:100vh;overflow:hidden}.frame{display:block;border:0;width:100%;height:100vh;min-height:100vh;background:#f5f7f4}.mobile{display:none}@media(max-width:700px){.shell{grid-template-columns:1fr}.side{padding:10px 12px;border-right:0;border-bottom:1px solid var(--line)}.brand{padding:5px 8px 9px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:9px 11px}.frame{height:calc(100vh - 75px);min-height:calc(100vh - 75px)}}
+</style></head><body><div class="shell"><aside class="side"><div class="brand">学而时习之<small>LEARN · REFLECT · REVIEW</small></div><nav class="nav" id="nav">
 <button class="active" data-file="学而时习之_知新材料目录与阅读器原型.html">▤　知新</button>
 <button data-file="学而时习之_卡片管理原型_批量删除版.html">▤　卡片管理</button>
 <button data-file="学而时习之_温故页面原型.html">◷　温故</button>
 <button data-file="学而时习之_识错页面原型_详情只读连对次数版.html">◎　识错</button>
 <button data-file="学而时习之_打动我的一瞬页面原型_修改版2.html">♡　打动我的一瞬</button>
-</nav><div class="note">五大模块统一入口。当前总版复用各模块独立原型页面；切换模块时在此区域内加载对应页面。<br>温故采用仓库当前版本。</div></aside><main class="main"><header class="top"><span>学习空间　/　<b id="current">知新</b></span><span>五大模块总版 · 原型审查稿</span></header><iframe class="frame" id="view" src="学而时习之_知新材料目录与阅读器原型.html" title="模块原型"></iframe></main></div>
+</nav></aside><main class="main"><iframe class="frame" id="view" src="学而时习之_知新材料目录与阅读器原型.html" title="模块原型"></iframe></main></div>
 <script>
 const nav=document.getElementById('nav'),view=document.getElementById('view'),current=document.getElementById('current');
 // 总版已提供统一模块导航；嵌入独立原型时隐藏其内部模块侧栏，避免出现双层导航。
@@ -21,7 +21,26 @@ function normalizeEmbeddedPage(){
     if(!style){
       style=doc.createElement('style');
       style.id='embedded-shell-override';
-      style.textContent='.app{display:block!important;grid-template-columns:minmax(0,1fr)!important}.sidebar,.mobile-nav{display:none!important}';
+      style.textContent=`
+      /* 总版统一框架：模块内部不再重复显示侧栏 */
+      html,body{margin:0!important;min-width:0!important;width:100%!important}
+      .app{display:block!important;grid-template-columns:minmax(0,1fr)!important;min-height:100vh!important;width:100%!important}
+      .sidebar,.mobile-nav{display:none!important}
+      .main{display:block!important;min-width:0!important;width:100%!important;min-height:100vh!important}
+      /* 五个模块统一顶部栏、内容宽度与页面留白 */
+      .topbar{height:62px!important;min-height:62px!important;padding:0 34px!important;box-sizing:border-box!important;position:relative!important;top:auto!important}
+      .content{width:100%!important;max-width:1320px!important;margin:0 auto!important;padding:32px 36px 56px!important;box-sizing:border-box!important}
+      .top-actions{display:none!important}
+      /* 本地数据标识、标注模式及其反馈浮层均属于设计辅助，不进入产品界面 */
+      #annotationToggle,.annotation-toggle,.annotation-hint,.annotation-mode-hint,
+      .feedback-dock,.feedback-list,.annotation-modal,.dock,
+      [data-feedback-ui]{display:none!important}
+      .top-tag,.local-dot{display:none!important}
+      @media(max-width:760px){
+        .topbar{height:56px!important;min-height:56px!important;padding:0 18px!important}
+        .content{padding:24px 18px 42px!important}
+      }
+    `;
       doc.head.appendChild(style);
     }
   }catch(err){
