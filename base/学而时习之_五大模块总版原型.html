@@ -11,5 +11,23 @@
 </nav><div class="note">五大模块统一入口。当前总版复用各模块独立原型页面；切换模块时在此区域内加载对应页面。<br>温故采用仓库当前版本。</div></aside><main class="main"><header class="top"><span>学习空间　/　<b id="current">知新</b></span><span>五大模块总版 · 原型审查稿</span></header><iframe class="frame" id="view" src="学而时习之_知新材料目录与阅读器原型.html" title="模块原型"></iframe></main></div>
 <script>
 const nav=document.getElementById('nav'),view=document.getElementById('view'),current=document.getElementById('current');
+// 总版已提供统一模块导航；嵌入独立原型时隐藏其内部模块侧栏，避免出现双层导航。
+// 仅影响 iframe 内的展示，独立打开各模块 HTML 时仍保留原有侧栏。
+function normalizeEmbeddedPage(){
+  try{
+    const doc=view.contentDocument;
+    if(!doc)return;
+    let style=doc.getElementById('embedded-shell-override');
+    if(!style){
+      style=doc.createElement('style');
+      style.id='embedded-shell-override';
+      style.textContent='.app{display:block!important;grid-template-columns:minmax(0,1fr)!important}.sidebar,.mobile-nav{display:none!important}';
+      doc.head.appendChild(style);
+    }
+  }catch(err){
+    console.warn('无法调整嵌入页面导航布局：',err);
+  }
+}
+view.addEventListener('load',normalizeEmbeddedPage);
 nav.addEventListener('click',e=>{const b=e.target.closest('button[data-file]');if(!b)return;nav.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));view.src=b.dataset.file;current.textContent=b.textContent.trim().replace(/^\S+\s*/, '')});
 </script></body></html>
